@@ -19,14 +19,13 @@ namespace Proiect
         {
             InitializeComponent();
         }
-
-        private void imageBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-        Image<Bgr, byte> My_Imgae = null;
+        Image<Bgr, byte> My_Imgae = null; 
+        Image<Bgr, byte> finalImage = null;
         Image<Bgr, byte> outputImage = null;
         Image<Bgr, byte> g = null;
+        Rectangle rect;
+        Point StartROI;
+        bool MouseDown;
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -34,12 +33,8 @@ namespace Proiect
             {
                 My_Imgae = new Image<Bgr, byte>(openFileDialog.FileName);
                 pictureBox1.Image = My_Imgae.ToBitmap();
+                
             }
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -80,7 +75,7 @@ namespace Proiect
             double alfa = double.Parse( Alfa.Text);
             double beta = double.Parse(Beta.Text);
            outputImage = My_Imgae.Mul(alfa)+beta;
-            pictureBox3.Image= outputImage.ToBitmap();
+            pictureBox3.Image= finalImage.ToBitmap();
          
 
         }
@@ -95,6 +90,57 @@ namespace Proiect
         private void GamaValue_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (pictureBox1.Image == null)
+            {
+                return;
+            }
+
+            int width = Math.Max(StartROI.X, e.X) - Math.Min(StartROI.X, e.X);
+            int height = Math.Max(StartROI.Y, e.Y) - Math.Min(StartROI.Y, e.Y);
+            rect = new Rectangle(Math.Min(StartROI.X, e.X),
+                Math.Min(StartROI.Y, e.Y),
+                width,
+                height);
+            Refresh();
+
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            MouseDown = false;
+            if (pictureBox1.Image == null || rect == Rectangle.Empty)
+            { return; }
+
+            var img = new Bitmap(pictureBox1.Image).ToImage<Bgr, byte>();
+            img.ROI = rect;
+            var imgROI = img.Copy();
+            finalImage = imgROI;
+            pictureBox2.Image = imgROI.ToBitmap();
+            pictureBox3.Image = My_Imgae.ToBitmap();
+            pictureBox3.Image= imgROI.ToBitmap();
+
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            if (MouseDown)
+            {
+                using (Pen pen = new Pen(Color.Red, 1))
+                {
+                    e.Graphics.DrawRectangle(pen, rect);
+                }
+            }
+
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            MouseDown = true;
+            StartROI = e.Location;
         }
     }
 }
