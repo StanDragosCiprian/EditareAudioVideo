@@ -1,4 +1,6 @@
 ﻿using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.DepthAI;
 using Emgu.CV.Structure;
 using Emgu.CV.UI;
 using System;
@@ -6,8 +8,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -19,79 +23,38 @@ namespace Proiect
         {
             InitializeComponent();
         }
-        Image<Bgr, byte> My_Imgae = null; 
         Image<Bgr, byte> finalImage = null;
-        Image<Bgr, byte> outputImage = null;
-        Image<Bgr, byte> g = null;
+        UserImage userImage=new UserImage();
+        UserVideo userVideo=new UserVideo();
+        UserCamera userCamera = new UserCamera();
         Rectangle rect;
         Point StartROI;
         bool MouseDown;
+
+        //private Image<Bgr, Byte> newBackgroundImage = new Image<Bgr, byte>(@"C:\Users\Retro\Desktop\R.jpg");
+        private static IBackgroundSubtractor fgDetector;
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if(openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                My_Imgae = new Image<Bgr, byte>(openFileDialog.FileName);
-                pictureBox1.Image = My_Imgae.ToBitmap();
-                
-            }
+            userImage.loadImage(pictureBox1);
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
-            if (My_Imgae != null)
-            {
-             
-                for (int i = 0; i < My_Imgae.Width / 2; i++)
-                {
-                    for (int j = 0; j < My_Imgae.Height / 2; j++)
-                    {
-                        My_Imgae[j, i] = new Bgr(Color.FromArgb(0, 255, 255, 255));
-                    }
-                }
-                Image<Gray, byte> gray_image = My_Imgae.Convert<Gray, byte>();
-                pictureBox2.Image = gray_image.AsBitmap();
-                gray_image[0, 0] = new Gray(200);
-
-                
-            }
-            }
-
+            userImage.convertToGrey(pictureBox2);
+        }
         private void button3_Click(object sender, EventArgs e)
         {
-            HistogramViewer hist = new HistogramViewer();
-            hist.HistogramCtrl.GenerateHistograms(My_Imgae, 255);
-            hist.Text = "ce";
-            hist.Show();
-            HistogramViewer hist2 = new HistogramViewer();
-            hist2.HistogramCtrl.GenerateHistograms(outputImage, 255);
-            hist2.Show();
+            userImage.histogram();
         }
-
-      
-
         private void button4_Click(object sender, EventArgs e)
         {
-            double alfa = double.Parse( Alfa.Text);
-            double beta = double.Parse(Beta.Text);
-           outputImage = My_Imgae.Mul(alfa)+beta;
-            pictureBox3.Image= finalImage.ToBitmap();
-         
+        userImage.Brignes(pictureBox2, Alfa, Beta);
 
         }
-
         private void button5_Click(object sender, EventArgs e)
         {
-            outputImage = My_Imgae.Clone();
-            outputImage._GammaCorrect(double.Parse(gama.Text));
-            pictureBox3.Image = outputImage.ToBitmap();
+
+        userImage.gama(pictureBox2, gama);
         }
-
-        private void GamaValue_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
             if (pictureBox1.Image == null)
@@ -108,23 +71,18 @@ namespace Proiect
             Refresh();
 
         }
-
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             MouseDown = false;
             if (pictureBox1.Image == null || rect == Rectangle.Empty)
             { return; }
-
             var img = new Bitmap(pictureBox1.Image).ToImage<Bgr, byte>();
             img.ROI = rect;
             var imgROI = img.Copy();
             finalImage = imgROI;
-            pictureBox2.Image = imgROI.ToBitmap();
-            pictureBox3.Image = My_Imgae.ToBitmap();
-            pictureBox3.Image= imgROI.ToBitmap();
-
+            userImage.setUserImage(imgROI);
+            pictureBox2.Image = userImage.getUserImage().ToBitmap();
         }
-
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             if (MouseDown)
@@ -135,6 +93,26 @@ namespace Proiect
                 }
             }
 
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            userVideo.loadVideo(pictureBox3, numericUpDown1, label3);
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            userVideo.play();
+        }
+        private void button8_Click(object sender, EventArgs e)
+        {
+            userCamera.init(pictureBox4,userImage);
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            userVideo.wiriteToVideo(userImage);
+        }
+        private async void button11_Click(object sender, EventArgs e)
+        {
+            userImage.blendingImage(pictureBox5);
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
