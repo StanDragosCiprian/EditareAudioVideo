@@ -13,7 +13,7 @@ namespace Proiect
 {
     internal class UserCamera
     {
-        private Image<Bgr, Byte> newBackgroundImage =null;
+        private Image<Bgr, Byte> newBackgroundImage = null;
         private static IBackgroundSubtractor fgDetector;
         private Camera camera;
         private VideoCapture cameraCapture;
@@ -37,7 +37,7 @@ namespace Proiect
             frameImage = frameImage.Or(copyOfNewBackgroundImage);
             this.pictureBox1.Image = frameImage.ToBitmap();
         }
-        public void init(PictureBox pictureBox,UserImage userImage)
+        public void init(PictureBox pictureBox, UserImage userImage)
         {
             this.pictureBox1 = pictureBox;
             this.newBackgroundImage = userImage.getUserImage();

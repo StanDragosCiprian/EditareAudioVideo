@@ -36,6 +36,7 @@ namespace Proiect
         private void button1_Click(object sender, EventArgs e)
         {
             userImage.loadImage(pictureBox1);
+            userImage.setNotProccesImage(userImage.getUserImage());
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -81,6 +82,7 @@ namespace Proiect
             var imgROI = img.Copy();
             finalImage = imgROI;
             userImage.setUserImage(imgROI);
+          
             pictureBox2.Image = userImage.getUserImage().ToBitmap();
         }
         private void pictureBox1_Paint(object sender, PaintEventArgs e)

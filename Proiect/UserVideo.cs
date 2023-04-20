@@ -30,7 +30,7 @@ namespace Proiect
         public void loadVideo(PictureBox pictureBox, NumericUpDown numericUpDown1, System.Windows.Forms.Label label)
         {
             pictureBox1 = pictureBox;
-            label1=label;
+            label1 = label;
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {

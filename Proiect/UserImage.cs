@@ -14,18 +14,26 @@ namespace Proiect
 {
 internal class UserImage
 {
-    private Image<Bgr, byte> My_Imgae = null;
-    private Image<Bgr, byte> finalImage = null;
+    private Image<Bgr, byte> My_Image = null;
+    private Image<Bgr, byte> notProccesImage = null;
     private Image<Bgr, byte> outputImage = null;
     private Image<Gray, byte> gray_image = null;
 
         public Image<Bgr, Byte> getUserImage()
         {
-            return this.My_Imgae;
+            return this.My_Image;
         }
         public void setUserImage(Image<Bgr, Byte> img)
         {
-            this.My_Imgae = img;
+            this.My_Image = img;
+        }
+        public void setNotProccesImage(Image<Bgr, Byte> img)
+        {
+            this.notProccesImage = img;
+        }
+        public Image<Bgr, Byte> getNotProccesImage()
+        {
+            return this.notProccesImage;
         }
         public void loadImage(PictureBox pictureBox)
     {
@@ -33,25 +41,25 @@ internal class UserImage
         OpenFileDialog openFileDialog  = new OpenFileDialog();
         if (openFileDialog.ShowDialog() == DialogResult.OK)
         {
-            this.My_Imgae = new Image<Bgr, byte>(openFileDialog.FileName);
-            pictureBox.Image= this.My_Imgae.ToBitmap();
+            this.My_Image = new Image<Bgr, byte>(openFileDialog.FileName);
+            pictureBox.Image= this.My_Image.ToBitmap();
 
         }
     
     }
     public void convertToGrey(PictureBox pictureBox)
     {
-        if (this.My_Imgae != null)
+        if (this.My_Image != null)
         {
 
-            for (int i = 0; i < this.My_Imgae.Width / 2; i++)
+            for (int i = 0; i < this.My_Image.Width / 2; i++)
             {
-                for (int j = 0; j < this.My_Imgae.Height / 2; j++)
+                for (int j = 0; j < this.My_Image.Height / 2; j++)
                 {
-                    this.My_Imgae[j, i] = new Bgr(Color.FromArgb(0, 255, 255, 255));
+                    this.My_Image[j, i] = new Bgr(Color.FromArgb(0, 255, 255, 255));
                 }
             }
-            this.gray_image = this.My_Imgae.Convert<Gray, byte>();
+            this.gray_image = this.My_Image.Convert<Gray, byte>();
             pictureBox.Image= this.gray_image.AsBitmap();
             this.gray_image[0, 0] = new Gray(200);
 
@@ -62,7 +70,7 @@ internal class UserImage
     public void histogram()
     {
         HistogramViewer hist = new HistogramViewer();
-        hist.HistogramCtrl.GenerateHistograms(this.My_Imgae, 255);
+        hist.HistogramCtrl.GenerateHistograms(this.My_Image, 255);
         hist.Text = "ce";
         hist.Show();
             HistogramViewer hist2 = new HistogramViewer();
@@ -73,12 +81,12 @@ internal class UserImage
     {
         double alfa = double.Parse(Alfa.Text);
         double beta = double.Parse(Beta.Text);
-        this.outputImage = this.My_Imgae.Mul(alfa) + beta;
+        this.outputImage = this.My_Image.Mul(alfa) + beta;
         pictureBox.Image = this.outputImage.ToBitmap();
     }
 public void gama(PictureBox pictureBox, TextBox gama)
 {
-    this.outputImage = this.My_Imgae.Clone();
+    this.outputImage = this.My_Image.Clone();
     this.outputImage._GammaCorrect(double.Parse(gama.Text));
     pictureBox.Image = this.outputImage.ToBitmap();
 }
