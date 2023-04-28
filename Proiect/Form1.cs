@@ -3,6 +3,7 @@ using Emgu.CV.CvEnum;
 using Emgu.CV.DepthAI;
 using Emgu.CV.Structure;
 using Emgu.CV.UI;
+using Emgu.CV.XPhoto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,9 +25,11 @@ namespace Proiect
             InitializeComponent();
         }
         Image<Bgr, byte> finalImage = null;
-        UserImage userImage=new UserImage();
-        UserVideo userVideo=new UserVideo();
+        UserImage userImage = new UserImage();
+        UserVideo userVideo = new UserVideo();
+        UserVideo userVideo2 = new UserVideo();
         UserCamera userCamera = new UserCamera();
+
         Rectangle rect;
         Point StartROI;
         bool MouseDown;
@@ -48,13 +51,13 @@ namespace Proiect
         }
         private void button4_Click(object sender, EventArgs e)
         {
-        userImage.Brignes(pictureBox2, Alfa, Beta);
+            userImage.Brignes(pictureBox2, Alfa, Beta);
 
         }
         private void button5_Click(object sender, EventArgs e)
         {
 
-        userImage.gama(pictureBox2, gama);
+            userImage.gama(pictureBox2, gama);
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -82,7 +85,7 @@ namespace Proiect
             var imgROI = img.Copy();
             finalImage = imgROI;
             userImage.setUserImage(imgROI);
-          
+
             pictureBox2.Image = userImage.getUserImage().ToBitmap();
         }
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -103,15 +106,13 @@ namespace Proiect
         private void button7_Click(object sender, EventArgs e)
         {
             userVideo.play();
+            userVideo2.play();
         }
         private void button8_Click(object sender, EventArgs e)
         {
-            userCamera.init(pictureBox4,userImage);
+            userCamera.init(pictureBox4, userImage);
         }
-        private void button9_Click(object sender, EventArgs e)
-        {
-            userVideo.wiriteToVideo(userImage);
-        }
+
         private async void button11_Click(object sender, EventArgs e)
         {
             userImage.blendingImage(pictureBox5);
@@ -121,6 +122,36 @@ namespace Proiect
         {
             MouseDown = true;
             StartROI = e.Location;
+        }
+
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            userVideo.writingVideo(userImage);
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            userVideo2.loadVideo(pictureBox6, numericUpDown1, label3);
+        }
+        public async void abruptway()
+        {
+            int Fourcc = Convert.ToInt32(userVideo.capture.Get(CapProp.FourCC));
+            int Width = Convert.ToInt32(userVideo.capture.Get(CapProp.FrameWidth));
+            int Height = Convert.ToInt32(userVideo.capture.Get(CapProp.FrameHeight));
+
+            var Fps = userVideo.capture.Get(CapProp.Fps);
+            string destinationpath = @"E:\\Facultate\\Editare audio video\\zzz.mp4";
+            using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
+            {
+                userVideo.readFrame(writer);
+                userVideo2.readFrame(writer);
+            }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            abruptway();
         }
     }
 }

@@ -12,12 +12,12 @@ using System.IO;
 
 namespace Proiect
 {
-internal class UserImage
-{
-    private Image<Bgr, byte> My_Image = null;
-    private Image<Bgr, byte> notProccesImage = null;
-    private Image<Bgr, byte> outputImage = null;
-    private Image<Gray, byte> gray_image = null;
+    internal class UserImage
+    {
+        private Image<Bgr, byte> My_Image = null;
+        private Image<Bgr, byte> notProccesImage = null;
+        private Image<Bgr, byte> outputImage = null;
+        private Image<Gray, byte> gray_image = null;
 
         public Image<Bgr, Byte> getUserImage()
         {
@@ -36,60 +36,60 @@ internal class UserImage
             return this.notProccesImage;
         }
         public void loadImage(PictureBox pictureBox)
-    {
-         
-        OpenFileDialog openFileDialog  = new OpenFileDialog();
-        if (openFileDialog.ShowDialog() == DialogResult.OK)
-        {
-            this.My_Image = new Image<Bgr, byte>(openFileDialog.FileName);
-            pictureBox.Image= this.My_Image.ToBitmap();
-
-        }
-    
-    }
-    public void convertToGrey(PictureBox pictureBox)
-    {
-        if (this.My_Image != null)
         {
 
-            for (int i = 0; i < this.My_Image.Width / 2; i++)
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                for (int j = 0; j < this.My_Image.Height / 2; j++)
-                {
-                    this.My_Image[j, i] = new Bgr(Color.FromArgb(0, 255, 255, 255));
-                }
-            }
-            this.gray_image = this.My_Image.Convert<Gray, byte>();
-            pictureBox.Image= this.gray_image.AsBitmap();
-            this.gray_image[0, 0] = new Gray(200);
+                this.My_Image = new Image<Bgr, byte>(openFileDialog.FileName);
+                pictureBox.Image = this.My_Image.ToBitmap();
 
+            }
 
         }
+        public void convertToGrey(PictureBox pictureBox)
+        {
+            if (this.My_Image != null)
+            {
 
-    }
-    public void histogram()
-    {
-        HistogramViewer hist = new HistogramViewer();
-        hist.HistogramCtrl.GenerateHistograms(this.My_Image, 255);
-        hist.Text = "ce";
-        hist.Show();
+                for (int i = 0; i < this.My_Image.Width / 2; i++)
+                {
+                    for (int j = 0; j < this.My_Image.Height / 2; j++)
+                    {
+                        this.My_Image[j, i] = new Bgr(Color.FromArgb(0, 255, 255, 255));
+                    }
+                }
+                this.gray_image = this.My_Image.Convert<Gray, byte>();
+                pictureBox.Image = this.gray_image.AsBitmap();
+                this.gray_image[0, 0] = new Gray(200);
+
+
+            }
+
+        }
+        public void histogram()
+        {
+            HistogramViewer hist = new HistogramViewer();
+            hist.HistogramCtrl.GenerateHistograms(this.My_Image, 255);
+            hist.Text = "ce";
+            hist.Show();
             HistogramViewer hist2 = new HistogramViewer();
             hist2.HistogramCtrl.GenerateHistograms(this.outputImage, 255);
             hist2.Show();
         }
-    public void Brignes(PictureBox pictureBox, TextBox Alfa, TextBox Beta)
-    {
-        double alfa = double.Parse(Alfa.Text);
-        double beta = double.Parse(Beta.Text);
-        this.outputImage = this.My_Image.Mul(alfa) + beta;
-        pictureBox.Image = this.outputImage.ToBitmap();
-    }
-public void gama(PictureBox pictureBox, TextBox gama)
-{
-    this.outputImage = this.My_Image.Clone();
-    this.outputImage._GammaCorrect(double.Parse(gama.Text));
-    pictureBox.Image = this.outputImage.ToBitmap();
-}
+        public void Brignes(PictureBox pictureBox, TextBox Alfa, TextBox Beta)
+        {
+            double alfa = double.Parse(Alfa.Text);
+            double beta = double.Parse(Beta.Text);
+            this.outputImage = this.My_Image.Mul(alfa) + beta;
+            pictureBox.Image = this.outputImage.ToBitmap();
+        }
+        public void gama(PictureBox pictureBox, TextBox gama)
+        {
+            this.outputImage = this.My_Image.Clone();
+            this.outputImage._GammaCorrect(double.Parse(gama.Text));
+            pictureBox.Image = this.outputImage.ToBitmap();
+        }
         public async void blendingImage(PictureBox picture)
         {
             string[] FileNames = Directory.GetFiles(@"C:\Users\Retro\Desktop\Random image", "*.png");
@@ -108,5 +108,5 @@ public void gama(PictureBox pictureBox, TextBox gama)
 
             }
         }
-        }
+    }
 }
