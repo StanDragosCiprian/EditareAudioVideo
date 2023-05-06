@@ -62,6 +62,7 @@
             this.mono = new System.Windows.Forms.Button();
             this.sterio = new System.Windows.Forms.Button();
             this.Concatenating = new System.Windows.Forms.Button();
+            this.switchToImage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -392,11 +393,22 @@
             this.Concatenating.UseVisualStyleBackColor = true;
             this.Concatenating.Click += new System.EventHandler(this.Concatenating_Click);
             // 
+            // switchToImage
+            // 
+            this.switchToImage.Location = new System.Drawing.Point(1165, 300);
+            this.switchToImage.Name = "switchToImage";
+            this.switchToImage.Size = new System.Drawing.Size(98, 23);
+            this.switchToImage.TabIndex = 40;
+            this.switchToImage.Text = "Switch";
+            this.switchToImage.UseVisualStyleBackColor = true;
+            this.switchToImage.Click += new System.EventHandler(this.switchToImage_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1570, 701);
+            this.ClientSize = new System.Drawing.Size(1582, 853);
+            this.Controls.Add(this.switchToImage);
             this.Controls.Add(this.Concatenating);
             this.Controls.Add(this.sterio);
             this.Controls.Add(this.mono);
@@ -481,6 +493,7 @@
         private System.Windows.Forms.Button mono;
         private System.Windows.Forms.Button sterio;
         private System.Windows.Forms.Button Concatenating;
+        private System.Windows.Forms.Button switchToImage;
     }
 }
 

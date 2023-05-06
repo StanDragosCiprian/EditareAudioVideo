@@ -35,7 +35,7 @@ namespace Proiect
         {
             return this.notProccesImage;
         }
-        public void loadImage(PictureBox pictureBox)
+        public void loadImage(Content pictureBox)
         {
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -77,20 +77,20 @@ namespace Proiect
             hist2.HistogramCtrl.GenerateHistograms(this.outputImage, 255);
             hist2.Show();
         }
-        public void Brignes(PictureBox pictureBox, TextBox Alfa, TextBox Beta)
+        public void Brignes(Content pictureBox, TextBox Alfa, TextBox Beta)
         {
             double alfa = double.Parse(Alfa.Text);
             double beta = double.Parse(Beta.Text);
             this.outputImage = this.My_Image.Mul(alfa) + beta;
             pictureBox.Image = this.outputImage.ToBitmap();
         }
-        public void gama(PictureBox pictureBox, TextBox gama)
+        public void gama(Content pictureBox, TextBox gama)
         {
             this.outputImage = this.My_Image.Clone();
             this.outputImage._GammaCorrect(double.Parse(gama.Text));
             pictureBox.Image = this.outputImage.ToBitmap();
         }
-        public async void blendingImage(PictureBox picture)
+        public async void blendingImage(Content picture)
         {
             string[] FileNames = Directory.GetFiles(@"C:\Users\Retro\Desktop\Random image", "*.png");
             List<Image<Bgr, byte>> listImages = new List<Image<Bgr, byte>>();

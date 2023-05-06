@@ -38,12 +38,12 @@ namespace Proiect
         private static IBackgroundSubtractor fgDetector;
         private void button1_Click(object sender, EventArgs e)
         {
-            userImage.loadImage(pictureBox1);
+            //userImage.loadImage(pictureBox1);
             userImage.setNotProccesImage(userImage.getUserImage());
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            userImage.convertToGrey(pictureBox2);
+          //  userImage.convertToGrey(pictureBox2);
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -51,13 +51,13 @@ namespace Proiect
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            userImage.Brignes(pictureBox2, Alfa, Beta);
+            //userImage.Brignes(pictureBox2, Alfa, Beta);
 
         }
         private void button5_Click(object sender, EventArgs e)
         {
 
-            userImage.gama(pictureBox2, gama);
+          //  userImage.gama(pictureBox2, gama);
         }
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
@@ -115,7 +115,7 @@ namespace Proiect
 
         private async void button11_Click(object sender, EventArgs e)
         {
-            userImage.blendingImage(pictureBox5);
+          //  userImage.blendingImage(pictureBox5);
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
@@ -191,6 +191,14 @@ namespace Proiect
         private void Concatenating_Click(object sender, EventArgs e)
         {
             userAudio.concatenating();
+        }
+
+        private void switchToImage_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ImageForm imageForm=new ImageForm();
+            imageForm.ShowDialog();
+            this.Close();
         }
     }
 }
