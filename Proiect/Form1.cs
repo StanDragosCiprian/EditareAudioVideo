@@ -29,7 +29,7 @@ namespace Proiect
         UserVideo userVideo = new UserVideo();
         UserVideo userVideo2 = new UserVideo();
         UserCamera userCamera = new UserCamera();
-
+        UserAudio userAudio = new UserAudio();
         Rectangle rect;
         Point StartROI;
         bool MouseDown;
@@ -134,12 +134,11 @@ namespace Proiect
         {
             userVideo2.loadVideo(pictureBox6, numericUpDown1, label3);
         }
-        public async void abruptway()
+        public  void abruptway()
         {
             int Fourcc = Convert.ToInt32(userVideo.capture.Get(CapProp.FourCC));
             int Width = Convert.ToInt32(userVideo.capture.Get(CapProp.FrameWidth));
             int Height = Convert.ToInt32(userVideo.capture.Get(CapProp.FrameHeight));
-
             var Fps = userVideo.capture.Get(CapProp.Fps);
             string destinationpath = @"E:\\Facultate\\Editare audio video\\zzz.mp4";
             using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
@@ -152,6 +151,46 @@ namespace Proiect
         private void button12_Click(object sender, EventArgs e)
         {
             abruptway();
+        }
+
+        private void loadAudio_Click(object sender, EventArgs e)
+        {
+            userAudio.loadAudio();
+        }
+
+        private void PlayAudio_Click(object sender, EventArgs e)
+        {
+            userAudio.play();
+        }
+
+        private void converWav_Click(object sender, EventArgs e)
+        {
+            userAudio.converWav();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            userAudio.converMp3();
+        }
+
+        private void Mix_Click(object sender, EventArgs e)
+        {
+            userAudio.mixt();
+        }
+
+        private void mono_Click(object sender, EventArgs e)
+        {
+            userAudio.mono();
+        }
+
+        private void sterio_Click(object sender, EventArgs e)
+        {
+            userAudio.sterio();
+        }
+
+        private void Concatenating_Click(object sender, EventArgs e)
+        {
+            userAudio.concatenating();
         }
     }
 }

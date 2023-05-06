@@ -54,6 +54,14 @@
             this.button10 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
+            this.loadAudio = new System.Windows.Forms.Button();
+            this.PlayAudio = new System.Windows.Forms.Button();
+            this.converWav = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.Mix = new System.Windows.Forms.Button();
+            this.mono = new System.Windows.Forms.Button();
+            this.sterio = new System.Windows.Forms.Button();
+            this.Concatenating = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -303,11 +311,100 @@
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
+            // loadAudio
+            // 
+            this.loadAudio.Location = new System.Drawing.Point(1334, 632);
+            this.loadAudio.Name = "loadAudio";
+            this.loadAudio.Size = new System.Drawing.Size(153, 23);
+            this.loadAudio.TabIndex = 32;
+            this.loadAudio.Text = "Load Audio ";
+            this.loadAudio.UseVisualStyleBackColor = true;
+            this.loadAudio.Click += new System.EventHandler(this.loadAudio_Click);
+            // 
+            // PlayAudio
+            // 
+            this.PlayAudio.Location = new System.Drawing.Point(1220, 632);
+            this.PlayAudio.Name = "PlayAudio";
+            this.PlayAudio.Size = new System.Drawing.Size(99, 23);
+            this.PlayAudio.TabIndex = 33;
+            this.PlayAudio.Text = "Play Audio";
+            this.PlayAudio.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.PlayAudio.UseVisualStyleBackColor = true;
+            this.PlayAudio.Click += new System.EventHandler(this.PlayAudio_Click);
+            // 
+            // converWav
+            // 
+            this.converWav.Location = new System.Drawing.Point(1042, 631);
+            this.converWav.Name = "converWav";
+            this.converWav.Size = new System.Drawing.Size(124, 23);
+            this.converWav.TabIndex = 34;
+            this.converWav.Text = "ConvertWav";
+            this.converWav.UseVisualStyleBackColor = true;
+            this.converWav.Click += new System.EventHandler(this.converWav_Click);
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(910, 631);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(75, 23);
+            this.button13.TabIndex = 35;
+            this.button13.Text = "ConvertMp3";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // Mix
+            // 
+            this.Mix.Location = new System.Drawing.Point(790, 633);
+            this.Mix.Name = "Mix";
+            this.Mix.Size = new System.Drawing.Size(75, 23);
+            this.Mix.TabIndex = 36;
+            this.Mix.Text = "Mix";
+            this.Mix.UseVisualStyleBackColor = true;
+            this.Mix.Click += new System.EventHandler(this.Mix_Click);
+            // 
+            // mono
+            // 
+            this.mono.Location = new System.Drawing.Point(674, 633);
+            this.mono.Name = "mono";
+            this.mono.Size = new System.Drawing.Size(75, 23);
+            this.mono.TabIndex = 37;
+            this.mono.Text = "mono";
+            this.mono.UseVisualStyleBackColor = true;
+            this.mono.Click += new System.EventHandler(this.mono_Click);
+            // 
+            // sterio
+            // 
+            this.sterio.Location = new System.Drawing.Point(556, 632);
+            this.sterio.Name = "sterio";
+            this.sterio.Size = new System.Drawing.Size(75, 23);
+            this.sterio.TabIndex = 38;
+            this.sterio.Text = "sterio";
+            this.sterio.UseVisualStyleBackColor = true;
+            this.sterio.Click += new System.EventHandler(this.sterio_Click);
+            // 
+            // Concatenating
+            // 
+            this.Concatenating.Location = new System.Drawing.Point(428, 631);
+            this.Concatenating.Name = "Concatenating";
+            this.Concatenating.Size = new System.Drawing.Size(122, 23);
+            this.Concatenating.TabIndex = 39;
+            this.Concatenating.Text = "Concatenating";
+            this.Concatenating.UseVisualStyleBackColor = true;
+            this.Concatenating.Click += new System.EventHandler(this.Concatenating_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1570, 701);
+            this.Controls.Add(this.Concatenating);
+            this.Controls.Add(this.sterio);
+            this.Controls.Add(this.mono);
+            this.Controls.Add(this.Mix);
+            this.Controls.Add(this.button13);
+            this.Controls.Add(this.converWav);
+            this.Controls.Add(this.PlayAudio);
+            this.Controls.Add(this.loadAudio);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button10);
@@ -376,6 +473,14 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button loadAudio;
+        private System.Windows.Forms.Button PlayAudio;
+        private System.Windows.Forms.Button converWav;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button Mix;
+        private System.Windows.Forms.Button mono;
+        private System.Windows.Forms.Button sterio;
+        private System.Windows.Forms.Button Concatenating;
     }
 }
 
