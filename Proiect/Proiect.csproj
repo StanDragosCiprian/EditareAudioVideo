@@ -74,6 +74,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ButtonStyle.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Content.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -88,6 +91,9 @@
     </Compile>
     <Compile Include="ImageForm.Designer.cs">
       <DependentUpon>ImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuStyle.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

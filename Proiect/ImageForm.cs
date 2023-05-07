@@ -29,7 +29,9 @@ namespace Proiect
         List<Content> contentList=new List<Content>();
         private void ImageForm_Load(object sender, EventArgs e)
         {
-            for(int i = 0; i < 20; i++)
+            MenuStyle menuStyle = new MenuStyle();
+            this.Controls.Add(menuStyle);
+            for (int i = 0; i < 20; i++)
             {
                 contentList.Add(new Content(i));
                 contentList[i].Click += getIndex;
