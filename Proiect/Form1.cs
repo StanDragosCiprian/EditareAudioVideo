@@ -1,6 +1,6 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
-using Emgu.CV.DepthAI;
+
 using Emgu.CV.Structure;
 using Emgu.CV.UI;
 using Emgu.CV.XPhoto;
@@ -38,7 +38,7 @@ namespace Proiect
         private static IBackgroundSubtractor fgDetector;
         private void button1_Click(object sender, EventArgs e)
         {
-            //userImage.loadImage(pictureBox1);
+            userImage.loadImage(pictureBox1);
             userImage.setNotProccesImage(userImage.getUserImage());
         }
         private void button2_Click(object sender, EventArgs e)
@@ -199,6 +199,15 @@ namespace Proiect
             ImageForm imageForm=new ImageForm();
             imageForm.ShowDialog();
             this.Close();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            VideoForm videoForm = new VideoForm();
+            videoForm.ShowDialog();
+            this.Close();
+
         }
     }
 }

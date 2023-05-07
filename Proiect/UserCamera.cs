@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Emgu.CV.DepthAI;
+using System.Windows.Media.Media3D;
 
 namespace Proiect
 {

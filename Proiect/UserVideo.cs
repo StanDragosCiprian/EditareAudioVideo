@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Emgu.CV.DepthAI;
+using System.Windows.Media.Media3D;
 using System.Reflection.Emit;
 using Emgu.CV.Structure;
 using System.Drawing;
@@ -101,7 +101,7 @@ namespace Proiect
 
             this.setWritingVideo();
             Image<Bgr, byte> logo = userImage.getUserImage();
-            string destinationpath = @"E:\\Facultate\\Editare audio video\\PathToOutput.mp4";
+            string destinationpath = @"E:\\Facultate\\test2.mp4";
             using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
             {
 

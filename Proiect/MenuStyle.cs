@@ -33,5 +33,11 @@ namespace Proiect
             topPanel.Dock = DockStyle.Top;
             topPanel.Size = new Size(223, 80);
         }
+        public void setSize(int v)
+        {
+            topPanel.BackColor = this.BackColor;
+            topPanel.Dock = DockStyle.Top;
+            topPanel.Size = new Size(223, topPanel.Size.Height+v);
+        }
     }
 }

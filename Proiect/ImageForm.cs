@@ -26,52 +26,56 @@ namespace Proiect
         int indexImagae = 0;
         int indexLocationY = 40;
         int indexSelected = 0;
-        List<Content> contentList=new List<Content>();
+        List<ContentImage> contentList = new List<ContentImage>();
+        MenuStyle menuStyle;
         private void ImageForm_Load(object sender, EventArgs e)
         {
-            MenuStyle menuStyle = new MenuStyle();
+             menuStyle = new MenuStyle();
             this.Controls.Add(menuStyle);
+        
             for (int i = 0; i < 20; i++)
             {
-                contentList.Add(new Content(i));
+                contentList.Add(new ContentImage(i));
                 contentList[i].Click += getIndex;
             }
-            
+
         }
         private void button1_Click(object sender, EventArgs e)
         {
-     
+
             this.Controls.Add(contentList[indexImagae]);
             contentList[indexImagae].positionContent(indexLocationY);
-            userImage.loadImage(contentList[indexImagae]);
-            userImage.setNotProccesImage(userImage.getUserImage());
+            //userImage.loadImage(contentList[indexImagae]);
+            contentList[indexImagae].loadImage();
+            //userImage.setNotProccesImage(userImage.getUserImage());
             indexImagae++;
             indexLocationY += 613;
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            userImage.convertToGrey(contentList[indexSelected]);
-            
+
+            contentList[indexSelected].convertToGrey();
+
         }
         private void getIndex(object sender, EventArgs e)
         {
 
-            indexSelected = ((Content)sender).id;
-            
+            indexSelected = ((ContentImage)sender).id;
+
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            userImage.histogram();
+            contentList[indexSelected].histogram();
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            userImage.Brignes(contentList[indexSelected], Alfa, Beta);
+            contentList[indexSelected].brignes(Alfa, Beta);
 
         }
         private void button5_Click(object sender, EventArgs e)
         {
 
-            userImage.gama(contentList[indexSelected], gama);
+            contentList[indexSelected].gama(gama);
         }
         private void pMouseMove(object sender, MouseEventArgs e)
         {
@@ -123,9 +127,11 @@ namespace Proiect
         private void button6_Click(object sender, EventArgs e)
         {
             contentList[indexSelected].MouseMove += pMouseMove;
-            contentList[indexSelected].MouseUp+= pMouseUp;
-            contentList[indexSelected].MouseDown +=pMouseDown;
+            contentList[indexSelected].MouseUp += pMouseUp;
+            contentList[indexSelected].MouseDown += pMouseDown;
             contentList[indexSelected].Paint += pPaint;
         }
+        
+        
     }
 }

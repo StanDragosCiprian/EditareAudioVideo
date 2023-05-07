@@ -63,6 +63,7 @@
             this.sterio = new System.Windows.Forms.Button();
             this.Concatenating = new System.Windows.Forms.Button();
             this.switchToImage = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -403,11 +404,22 @@
             this.switchToImage.UseVisualStyleBackColor = true;
             this.switchToImage.Click += new System.EventHandler(this.switchToImage_Click);
             // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(1165, 375);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(143, 23);
+            this.button14.TabIndex = 41;
+            this.button14.Text = "Switch Video";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1582, 853);
+            this.Controls.Add(this.button14);
             this.Controls.Add(this.switchToImage);
             this.Controls.Add(this.Concatenating);
             this.Controls.Add(this.sterio);
@@ -494,6 +506,7 @@
         private System.Windows.Forms.Button sterio;
         private System.Windows.Forms.Button Concatenating;
         private System.Windows.Forms.Button switchToImage;
+        private System.Windows.Forms.Button button14;
     }
 }
 
