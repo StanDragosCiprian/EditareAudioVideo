@@ -30,7 +30,10 @@ namespace Proiect
         MenuStyle menuStyle;
         private void ImageForm_Load(object sender, EventArgs e)
         {
-             menuStyle = new MenuStyle();
+            
+            menuStyle = new MenuStyle();
+            menuStyle.switchEvent(this);
+            menuStyle.makeEvent();
             this.Controls.Add(menuStyle);
         
             for (int i = 0; i < 20; i++)

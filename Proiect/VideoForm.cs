@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Emgu.CV;
+using Emgu.CV.CvEnum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,8 +27,9 @@ namespace Proiect
         private void VideoForm_Load(object sender, EventArgs e)
         {
             menuStyle = new MenuStyle();
+            menuStyle.switchEvent(this);
+            menuStyle.makeEvent();
             this.Controls.Add(menuStyle);
-
             for (int i = 0; i < 20; i++)
             {
                 videoList.Add(new ContentVideo(i));
@@ -41,9 +44,21 @@ namespace Proiect
             indexImagae++;
             indexLocationY += 613;
         }
+        public  void abruptway()
+        {
+            int Fourcc = Convert.ToInt32(videoList[0].GetVideo().capture.Get(CapProp.FourCC));
+            int Width = Convert.ToInt32(videoList[0].GetVideo().capture.Get(CapProp.FrameWidth));
+            int Height = Convert.ToInt32(videoList[0].GetVideo().capture.Get(CapProp.FrameHeight));
+            var Fps = videoList[0].GetVideo().capture.Get(CapProp.Fps);
+            string destinationpath = @"E:\\Facultate\\Editare audio video\\zzz.mp4";
+            using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
+            {
+                videoList.ForEach(allVideo =>  allVideo.GetVideo().readFrame(writer) );
+            }
+        }
         private void button12_Click(object sender, EventArgs e)
         {
-
+            abruptway();
         }
         private void getIndex(object sender, EventArgs e)
         {

@@ -13,6 +13,10 @@ namespace Proiect
     {
         private UserVideo userVideo = new UserVideo();
         private UserCamera userCamera = new UserCamera();
+        public UserVideo GetVideo()
+        {
+            return this.userVideo;
+        }
         public ContentVideo(int id) : base(id)
         {
             this.Size = new Size(638, 538);

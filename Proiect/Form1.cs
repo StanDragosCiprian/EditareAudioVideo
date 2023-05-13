@@ -33,7 +33,7 @@ namespace Proiect
         Rectangle rect;
         Point StartROI;
         bool MouseDown;
-
+        MenuStyle menuStyle;
         //private Image<Bgr, Byte> newBackgroundImage = new Image<Bgr, byte>(@"C:\Users\Retro\Desktop\R.jpg");
         private static IBackgroundSubtractor fgDetector;
         private void button1_Click(object sender, EventArgs e)
@@ -208,6 +208,22 @@ namespace Proiect
             videoForm.ShowDialog();
             this.Close();
 
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AudioFrom audioForm = new AudioFrom();
+            audioForm.ShowDialog();
+            this.Close();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            menuStyle = new MenuStyle();
+            menuStyle.switchEvent(this);
+            menuStyle.makeEvent();
+            this.Controls.Add(menuStyle);
         }
     }
 }
