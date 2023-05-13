@@ -13,29 +13,19 @@ namespace Proiect
     {
         private UserVideo userVideo = new UserVideo();
         private UserCamera userCamera = new UserCamera();
-        public UserVideo GetVideo()
+        public UserVideo getVideo()
         {
             return this.userVideo;
+        }
+        public UserCamera getCamera()
+        {
+            return this.userCamera;
         }
         public ContentVideo(int id) : base(id)
         {
             this.Size = new Size(638, 538);
             this.id = id;
         }
-        public void loadVideo(NumericUpDown numericUpDown,Label label)
-        {
-            this.userVideo.loadVideo(this, numericUpDown, label);
-        }
-        public void play()
-        {
-            this.userVideo.play();
-        }
-        public void loadCamera() {
-            this.userCamera.init(this, this.userImage);
-        }
-        public void addImageIntoVideo(UserImage userImg)
-        {
-            this.userVideo.writingVideo(userImg);
-        }
+    
     }
 }

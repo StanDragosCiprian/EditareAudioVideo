@@ -23,18 +23,18 @@ namespace Proiect
         }
         List<ContentAudio> audioList = new List<ContentAudio>();
         MenuStyle menuStyle;
-        int indexImagae = 0;
         int indexLocationY = 40;
         int indexSelected = 0;
+        int id = 0;
         private void AudioFrom_Load(object sender, EventArgs e)
         {
             menuStyle = new MenuStyle();
             this.Controls.Add(menuStyle);
-            for (int i = 0; i < 20; i++)
-            {
-                audioList.Add(new ContentAudio(i));
-                audioList[i].Click += getIndex;
-            }
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    audioList.Add(new ContentAudio(i));
+            //    audioList[i].Click += getIndex;
+            //}
         }
         private void getIndex(object sender, EventArgs e)
         {
@@ -43,11 +43,13 @@ namespace Proiect
 
         private void loadAudio_Click(object sender, EventArgs e)
         {
-            this.Controls.Add(audioList[indexImagae]);
-            audioList[indexImagae].positionContent(indexLocationY);
-            audioList[indexImagae].loadAudio();
-            audioList[indexImagae].displayAudio();
-            indexImagae++;
+            audioList.Add(new ContentAudio(id));
+            audioList[id].Click += getIndex;
+            this.Controls.Add(audioList[id]);
+            audioList[id].positionContent(indexLocationY);
+            audioList[id].loadAudio();
+            audioList[id].displayAudio();
+            id++;
             indexLocationY += 613;
         }
     }

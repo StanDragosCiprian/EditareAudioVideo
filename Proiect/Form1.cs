@@ -101,7 +101,7 @@ namespace Proiect
         }
         private void button6_Click(object sender, EventArgs e)
         {
-            userVideo.loadVideo(pictureBox3, numericUpDown1, label3);
+            userVideo.loadVideo(pictureBox3);
         }
         private void button7_Click(object sender, EventArgs e)
         {
@@ -110,7 +110,7 @@ namespace Proiect
         }
         private void button8_Click(object sender, EventArgs e)
         {
-            userCamera.init(pictureBox4, userImage);
+            userCamera.loadCamera(pictureBox4, userImage);
         }
 
         private async void button11_Click(object sender, EventArgs e)
@@ -132,7 +132,7 @@ namespace Proiect
 
         private void button9_Click(object sender, EventArgs e)
         {
-            userVideo2.loadVideo(pictureBox6, numericUpDown1, label3);
+            userVideo2.loadVideo(pictureBox6);
         }
         public  void abruptway()
         {

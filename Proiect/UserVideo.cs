@@ -14,7 +14,7 @@ using System.Drawing;
 
 namespace Proiect
 {
-    internal class UserVideo
+    internal class UserVideo:UserImage
     {
 
         private int TotalFrame, FrameNo;
@@ -29,10 +29,10 @@ namespace Proiect
         int Height;
         private System.Windows.Forms.Label label1;
 
-        public void loadVideo(PictureBox pictureBox, NumericUpDown numericUpDown1, System.Windows.Forms.Label label)
+        public void loadVideo(PictureBox pictureBox)
         {
             pictureBox1 = pictureBox;
-            label1 = label;
+
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -44,26 +44,37 @@ namespace Proiect
                 this.TotalFrame = (int)this.capture.Get(CapProp.FrameCount);
                 this.Fps = this.capture.Get(CapProp.Fps);
                 this.FrameNo = 1;
-                numericUpDown1.Value = this.FrameNo;
-                numericUpDown1.Minimum = 0;
-                numericUpDown1.Maximum = this.TotalFrame;
+                
+           
             }
         }
         public async void ReadAllFrames()
         {
-            Mat m = new Mat();
-            while (this.IsReadingFrame == true && this.FrameNo < this.TotalFrame)
+
+            while (isPlaying())
             {
                 this.FrameNo += 1;
                 var mat = this.capture.QueryFrame();
                 pictureBox1.Image = mat.ToBitmap();
                 await Task.Delay(1000 / Convert.ToInt16(this.Fps));
-                label1.Text = this.FrameNo.ToString() + "/" + this.TotalFrame.ToString();
+              
             }
         }
-    
+        public bool isPlaying()
+        {
+            return this.IsReadingFrame == true && this.FrameNo < this.TotalFrame;
+        }
+        public async void controlFrame(int frame)
+        {
+            this.FrameNo += frame;
+            this.capture.Set(CapProp.PosFrames, this.FrameNo);
+            var mat = this.capture.QueryFrame();
+            pictureBox1.Image = mat.ToBitmap();
+            await Task.Delay(1000 / Convert.ToInt16(this.Fps));
 
- 
+        }
+
+
         public void play()
         {
             if (this.capture == null)
@@ -73,7 +84,34 @@ namespace Proiect
             this.IsReadingFrame = true;
             this.ReadAllFrames();
         }
-       public void setWritingVideo()
+        public void playForward()
+        {
+            if (this.capture == null)
+            {
+                return;
+            }
+            this.IsReadingFrame = true;
+            this.controlFrame(1);
+        }
+        public void playBack()
+        {
+            if (this.capture == null)
+            {
+                return;
+            }
+       
+            this.controlFrame(-1);
+        }
+        public void stop()
+        {
+            if (this.capture == null)
+            {
+                return;
+            }
+            this.IsReadingFrame = false;
+            this.ReadAllFrames();
+        }
+        public void setWritingVideo()
         {
             int Fourcc = Convert.ToInt32(this.capture.Get(CapProp.FourCC));
             int Width = Convert.ToInt32(this.capture.Get(CapProp.FrameWidth));

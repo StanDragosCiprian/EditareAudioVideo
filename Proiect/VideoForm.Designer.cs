@@ -29,79 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.videoEdit = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.writeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.combineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.effectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.brignesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contentLoad = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.loadVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.videoEdit.SuspendLayout();
+            this.contentLoad.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button12
-            // 
-            this.button12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.button12.FlatAppearance.BorderSize = 0;
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button12.ForeColor = System.Drawing.Color.White;
-            this.button12.Location = new System.Drawing.Point(1209, 329);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(278, 39);
-            this.button12.TabIndex = 35;
-            this.button12.Text = "Combine";
-            this.button12.UseVisualStyleBackColor = false;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // button10
-            // 
-            this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.button10.FlatAppearance.BorderSize = 0;
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button10.ForeColor = System.Drawing.Color.White;
-            this.button10.Location = new System.Drawing.Point(1209, 284);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(278, 39);
-            this.button10.TabIndex = 34;
-            this.button10.Text = "Write Video";
-            this.button10.UseVisualStyleBackColor = false;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // button8
-            // 
-            this.button8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.button8.FlatAppearance.BorderSize = 0;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(1209, 238);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(278, 40);
-            this.button8.TabIndex = 33;
-            this.button8.Text = "Camera_Things";
-            this.button8.UseVisualStyleBackColor = false;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(1209, 192);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(278, 40);
-            this.button6.TabIndex = 32;
-            this.button6.Text = "Video_Load";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // panel2
             // 
@@ -112,51 +55,95 @@
             this.panel2.Size = new System.Drawing.Size(1582, 99);
             this.panel2.TabIndex = 47;
             // 
-            // numericUpDown1
+            // videoEdit
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(1209, 419);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(100, 22);
-            this.numericUpDown1.TabIndex = 48;
+            this.videoEdit.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.videoEdit.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.videoToolStripMenuItem,
+            this.effectsToolStripMenuItem});
+            this.videoEdit.Name = "contextMenuStrip1";
+            this.videoEdit.Size = new System.Drawing.Size(123, 52);
+            this.videoEdit.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.videoEdit_ItemClicked);
             // 
-            // label3
+            // videoToolStripMenuItem
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(1206, 115);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 16);
-            this.label3.TabIndex = 49;
-            this.label3.Text = "FPS";
+            this.videoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.writeToolStripMenuItem,
+            this.combineToolStripMenuItem,
+            this.playToolStripMenuItem,
+            this.stopToolStripMenuItem});
+            this.videoToolStripMenuItem.Name = "videoToolStripMenuItem";
+            this.videoToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.videoToolStripMenuItem.Text = "Video";
             // 
-            // button7
+            // writeToolStripMenuItem
             // 
-            this.button7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.button7.FlatAppearance.BorderSize = 0;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(1209, 374);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(278, 39);
-            this.button7.TabIndex = 50;
-            this.button7.Text = "Play";
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.writeToolStripMenuItem.Name = "writeToolStripMenuItem";
+            this.writeToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.writeToolStripMenuItem.Text = "Write";
             // 
-            // button1
+            // combineToolStripMenuItem
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(1209, 146);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(278, 40);
-            this.button1.TabIndex = 51;
-            this.button1.Text = "Load Image";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.combineToolStripMenuItem.Name = "combineToolStripMenuItem";
+            this.combineToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.combineToolStripMenuItem.Text = "Combine";
+            // 
+            // playToolStripMenuItem
+            // 
+            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.playToolStripMenuItem.Text = "Play";
+            this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
+            // 
+            // stopToolStripMenuItem
+            // 
+            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.stopToolStripMenuItem.Text = "Stop";
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
+            // 
+            // effectsToolStripMenuItem
+            // 
+            this.effectsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.brignesToolStripMenuItem});
+            this.effectsToolStripMenuItem.Name = "effectsToolStripMenuItem";
+            this.effectsToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.effectsToolStripMenuItem.Text = "Effects";
+            // 
+            // brignesToolStripMenuItem
+            // 
+            this.brignesToolStripMenuItem.Name = "brignesToolStripMenuItem";
+            this.brignesToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
+            this.brignesToolStripMenuItem.Text = "Brignes";
+            // 
+            // contentLoad
+            // 
+            this.contentLoad.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contentLoad.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadVideoToolStripMenuItem,
+            this.loadImageToolStripMenuItem,
+            this.loadCameraToolStripMenuItem});
+            this.contentLoad.Name = "contextMenuStrip2";
+            this.contentLoad.Size = new System.Drawing.Size(167, 76);
+            this.contentLoad.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contentLoad_ItemClicked);
+            // 
+            // loadVideoToolStripMenuItem
+            // 
+            this.loadVideoToolStripMenuItem.Name = "loadVideoToolStripMenuItem";
+            this.loadVideoToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.loadVideoToolStripMenuItem.Text = "Load Video";
+            // 
+            // loadImageToolStripMenuItem
+            // 
+            this.loadImageToolStripMenuItem.Name = "loadImageToolStripMenuItem";
+            this.loadImageToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.loadImageToolStripMenuItem.Text = "Load Image";
+            // 
+            // loadCameraToolStripMenuItem
+            // 
+            this.loadCameraToolStripMenuItem.Name = "loadCameraToolStripMenuItem";
+            this.loadCameraToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
+            this.loadCameraToolStripMenuItem.Text = "Load Camera";
             // 
             // VideoForm
             // 
@@ -164,36 +151,31 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1582, 853);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.button12);
-            this.Controls.Add(this.button10);
-            this.Controls.Add(this.button8);
-            this.Controls.Add(this.button6);
             this.Name = "VideoForm";
             this.Text = "VideoForm";
             this.Load += new System.EventHandler(this.VideoForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.VideoForm_KeyPress);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VideoForm_MouseDown);
+            this.videoEdit.ResumeLayout(false);
+            this.contentLoad.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.ContextMenuStrip videoEdit;
+        private System.Windows.Forms.ToolStripMenuItem videoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem writeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem combineToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem effectsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem brignesToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contentLoad;
+        private System.Windows.Forms.ToolStripMenuItem loadVideoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadCameraToolStripMenuItem;
     }
 }

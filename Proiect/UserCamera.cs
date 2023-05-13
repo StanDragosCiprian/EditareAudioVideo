@@ -37,7 +37,7 @@ namespace Proiect
             frameImage = frameImage.Or(copyOfNewBackgroundImage);
             this.pictureBox1.Image = frameImage.ToBitmap();
         }
-        public void init(PictureBox pictureBox, UserImage userImage)
+        public void loadCamera(PictureBox pictureBox, UserImage userImage)
         {
             this.pictureBox1 = pictureBox;
             this.newBackgroundImage = userImage.getUserImage();

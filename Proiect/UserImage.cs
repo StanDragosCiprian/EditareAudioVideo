@@ -23,6 +23,7 @@ namespace Proiect
         {
             return this.My_Image;
         }
+
         public void setUserImage(Image<Bgr, Byte> img)
         {
             this.My_Image = img;
