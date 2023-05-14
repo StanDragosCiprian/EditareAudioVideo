@@ -239,6 +239,7 @@
             this.Controls.Add(this.button1);
             this.Name = "ImageForm";
             this.Text = "ImageForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ImageForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

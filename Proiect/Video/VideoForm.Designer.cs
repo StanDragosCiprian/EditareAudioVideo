@@ -37,11 +37,12 @@
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.brignesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ROI = new System.Windows.Forms.ToolStripMenuItem();
             this.contentLoad = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.loadVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.greyScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.videoEdit.SuspendLayout();
             this.contentLoad.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +63,7 @@
             this.videoToolStripMenuItem,
             this.effectsToolStripMenuItem});
             this.videoEdit.Name = "contextMenuStrip1";
-            this.videoEdit.Size = new System.Drawing.Size(123, 52);
+            this.videoEdit.Size = new System.Drawing.Size(211, 80);
             this.videoEdit.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.videoEdit_ItemClicked);
             // 
             // videoToolStripMenuItem
@@ -73,7 +74,7 @@
             this.playToolStripMenuItem,
             this.stopToolStripMenuItem});
             this.videoToolStripMenuItem.Name = "videoToolStripMenuItem";
-            this.videoToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.videoToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.videoToolStripMenuItem.Text = "Video";
             // 
             // writeToolStripMenuItem
@@ -105,16 +106,18 @@
             // effectsToolStripMenuItem
             // 
             this.effectsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.brignesToolStripMenuItem});
+            this.ROI,
+            this.greyScaleToolStripMenuItem});
             this.effectsToolStripMenuItem.Name = "effectsToolStripMenuItem";
-            this.effectsToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.effectsToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.effectsToolStripMenuItem.Text = "Effects";
             // 
-            // brignesToolStripMenuItem
+            // ROI
             // 
-            this.brignesToolStripMenuItem.Name = "brignesToolStripMenuItem";
-            this.brignesToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
-            this.brignesToolStripMenuItem.Text = "Brignes";
+            this.ROI.Name = "ROI";
+            this.ROI.Size = new System.Drawing.Size(224, 26);
+            this.ROI.Text = "ROI";
+            this.ROI.Click += new System.EventHandler(this.ROI_Click);
             // 
             // contentLoad
             // 
@@ -145,6 +148,13 @@
             this.loadCameraToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
             this.loadCameraToolStripMenuItem.Text = "Load Camera";
             // 
+            // greyScaleToolStripMenuItem
+            // 
+            this.greyScaleToolStripMenuItem.Name = "greyScaleToolStripMenuItem";
+            this.greyScaleToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.greyScaleToolStripMenuItem.Text = "GreyScale";
+            this.greyScaleToolStripMenuItem.Click += new System.EventHandler(this.greyScaleToolStripMenuItem_Click);
+            // 
             // VideoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -153,7 +163,9 @@
             this.ClientSize = new System.Drawing.Size(1582, 853);
             this.Controls.Add(this.panel2);
             this.Name = "VideoForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "VideoForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.VideoForm_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.VideoForm_KeyPress);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VideoForm_MouseDown);
@@ -172,10 +184,11 @@
         private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem effectsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem brignesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ROI;
         private System.Windows.Forms.ContextMenuStrip contentLoad;
         private System.Windows.Forms.ToolStripMenuItem loadVideoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadImageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadCameraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem greyScaleToolStripMenuItem;
     }
 }

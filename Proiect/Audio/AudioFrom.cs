@@ -29,7 +29,10 @@ namespace Proiect
         private void AudioFrom_Load(object sender, EventArgs e)
         {
             menuStyle = new MenuStyle();
+            menuStyle.switchEvent(this);
+            menuStyle.makeEvent();
             this.Controls.Add(menuStyle);
+            this.KeyPreview = true;
             //for (int i = 0; i < 20; i++)
             //{
             //    audioList.Add(new ContentAudio(i));

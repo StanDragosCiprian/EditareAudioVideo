@@ -41,13 +41,14 @@ namespace Proiect
                 contentList.Add(new ContentImage(i));
                 contentList[i].Click += getIndex;
             }
+       
 
         }
         private void button1_Click(object sender, EventArgs e)
         {
 
             this.Controls.Add(contentList[indexImagae]);
-            contentList[indexImagae].positionContent(indexLocationY);
+            contentList[indexImagae].positionContentY(indexLocationY);
             //userImage.loadImage(contentList[indexImagae]);
             contentList[indexImagae].loadImage();
             //userImage.setNotProccesImage(userImage.getUserImage());

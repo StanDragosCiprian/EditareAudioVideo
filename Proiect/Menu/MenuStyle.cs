@@ -49,7 +49,7 @@ namespace Proiect
         }
        public void switchEvent(Form form)
         {
-            Form1 form1 = new Form1();
+            Main form1 = new Main();
             home.setForms(form, form1);
             ImageForm imageForm = new ImageForm();
             imageEditor.setForms(form, imageForm);

@@ -1,11 +1,4 @@
-﻿using Emgu.CV;
-using Emgu.CV.Structure;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace Proiect
@@ -20,18 +13,24 @@ namespace Proiect
             this.id = id;
             
         }
-        public void positionContent(int y)
+        public void positionContentY(int y)
         {
             this.Location = new Point(200,y);
 
         }
+        public void positionContentX(int X)
+        {
+            this.Location = new Point(X, 200);
+
+        }
         public void loadImage()
         {
-            userImage.loadImage(this);
+            userImage.setPictureBox(this);
+            userImage.loadImage();
         }
         public void convertToGrey()
         {
-            userImage.convertToGrey(this);
+            userImage.convertToGrey();
         }
         public void histogram()
         {

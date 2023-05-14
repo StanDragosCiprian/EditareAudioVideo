@@ -81,60 +81,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AudioFrom.cs">
+    <Compile Include="Audio\AudioFrom.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AudioFrom.Designer.cs">
+    <Compile Include="Audio\AudioFrom.Designer.cs">
       <DependentUpon>AudioFrom.cs</DependentUpon>
     </Compile>
-    <Compile Include="AudioInterface.cs" />
-    <Compile Include="ButtonStyle.cs">
+    <Compile Include="Menu\ButtonStyle.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ContentAudio.cs">
+    <Compile Include="Audio\ContentAudio.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ContentImage.cs">
+    <Compile Include="Image\ContentImage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ContentVideo.cs">
+    <Compile Include="Video\ContentVideo.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DisplayAudio.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Audio\DisplayAudio.cs" />
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImageForm.cs">
+    <Compile Include="Image\ImageForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImageForm.Designer.cs">
+    <Compile Include="Image\ImageForm.Designer.cs">
       <DependentUpon>ImageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuStyle.cs">
+    <Compile Include="Menu\MenuStyle.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserAudio.cs" />
-    <Compile Include="UserCamera.cs" />
-    <Compile Include="UserImage.cs" />
-    <Compile Include="UserVideo.cs" />
-    <Compile Include="VideoForm.cs">
+    <Compile Include="Audio\UserAudio.cs" />
+    <Compile Include="Video\UserCamera.cs" />
+    <Compile Include="Image\UserImage.cs" />
+    <Compile Include="Video\UserVideo.cs" />
+    <Compile Include="Video\VideoForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VideoForm.Designer.cs">
+    <Compile Include="Video\VideoForm.Designer.cs">
       <DependentUpon>VideoForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AudioFrom.resx">
+    <EmbeddedResource Include="Audio\AudioFrom.resx">
       <DependentUpon>AudioFrom.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImageForm.resx">
+    <EmbeddedResource Include="Image\ImageForm.resx">
       <DependentUpon>ImageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -146,7 +145,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="VideoForm.resx">
+    <EmbeddedResource Include="Video\VideoForm.resx">
       <DependentUpon>VideoForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

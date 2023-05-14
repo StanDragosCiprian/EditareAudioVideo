@@ -61,6 +61,7 @@
             this.Controls.Add(this.panel2);
             this.Name = "AudioFrom";
             this.Text = "AudioFrom";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.AudioFrom_Load);
             this.ResumeLayout(false);
 

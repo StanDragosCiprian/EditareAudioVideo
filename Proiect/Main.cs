@@ -18,9 +18,9 @@ using System.Windows.Forms;
 
 namespace Proiect
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
-        public Form1()
+        public Main()
         {
             InitializeComponent();
         }
@@ -38,7 +38,8 @@ namespace Proiect
         private static IBackgroundSubtractor fgDetector;
         private void button1_Click(object sender, EventArgs e)
         {
-            userImage.loadImage(pictureBox1);
+            userImage.setPictureBox(pictureBox1);
+            userImage.loadImage();
             userImage.setNotProccesImage(userImage.getUserImage());
         }
         private void button2_Click(object sender, EventArgs e)

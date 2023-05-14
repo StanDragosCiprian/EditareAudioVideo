@@ -1,5 +1,6 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -14,6 +15,7 @@ namespace Proiect
             InitializeComponent();
         }
         List<ContentVideo> videoList = new List<ContentVideo>();
+        bool isRoi = false;
         MenuStyle menuStyle;
         int id = 0;
         int indexLocationY = 40;
@@ -55,7 +57,7 @@ namespace Proiect
             videoList.Add(new ContentVideo(id));
             videoList[id].Click += getIndex;
             this.Controls.Add(videoList[id]);
-            videoList[id].positionContent(indexLocationY);
+            videoList[id].positionContentY(indexLocationY);
             videoList[id].loadImage();
             id++;
             indexLocationY += 613;
@@ -97,7 +99,7 @@ namespace Proiect
         private void loadVideo()
         {
             newContent(id);
-            videoList[id].positionContent(indexLocationY);
+            videoList[id].positionContentY(indexLocationY);
             videoList[id].getVideo().loadVideo(videoList[id]);
             id++;
             indexLocationY += 613;
@@ -105,7 +107,7 @@ namespace Proiect
         private void loadImage()
         {
             newContent(id);
-            videoList[id].positionContent(indexLocationY);
+            videoList[id].positionContentY(indexLocationY);
             videoList[id].loadImage();
             id++;
             indexLocationY += 613;
@@ -168,9 +170,13 @@ namespace Proiect
                     break;
                 case 'Z':
                     videoList[indexSelected].getVideo().playBack();
+                   
                     break;
                 case 'x':
+                    
                         videoList[indexSelected].getVideo().playForward();
+                    videoList[indexSelected].displayRoi(videoList[indexSelected], videoList[indexSelected].getVideo().getMat().ToImage<Bgr, byte>());
+              
                     break;
                 case 'X':
                         videoList[indexSelected].getVideo().playForward();
@@ -187,6 +193,19 @@ namespace Proiect
             this.KeyPreview = true;
         }
 
-     
+        private void ROI_Click(object sender, EventArgs e)
+        {
+            if (!isRoi)
+            {
+                videoList[indexSelected].initMouseEvents();
+
+            }
+            
+        }
+
+        private void greyScaleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().setGreyScale(videoList[indexSelected]);
+        }
     }
 }

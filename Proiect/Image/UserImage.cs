@@ -18,7 +18,7 @@ namespace Proiect
         private Image<Bgr, byte> notProccesImage = null;
         private Image<Bgr, byte> outputImage = null;
         private Image<Gray, byte> gray_image = null;
-
+        PictureBox pictureBox;
         public Image<Bgr, Byte> getUserImage()
         {
             return this.My_Image;
@@ -36,19 +36,23 @@ namespace Proiect
         {
             return this.notProccesImage;
         }
-        public void loadImage(PictureBox pictureBox)
+        public void setPictureBox(PictureBox pictureBox)
+        {
+            this.pictureBox = pictureBox;
+        }
+        public void loadImage()
         {
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 this.My_Image = new Image<Bgr, byte>(openFileDialog.FileName);
-                pictureBox.Image = this.My_Image.ToBitmap();
+                this.pictureBox.Image = this.My_Image.ToBitmap();
 
             }
-
         }
-        public void convertToGrey(PictureBox pictureBox)
+
+        public void convertToGrey()
         {
             if (this.My_Image != null)
             {
@@ -61,10 +65,8 @@ namespace Proiect
                     }
                 }
                 this.gray_image = this.My_Image.Convert<Gray, byte>();
-                pictureBox.Image = this.gray_image.AsBitmap();
+                this.pictureBox.Image = this.gray_image.AsBitmap();
                 this.gray_image[0, 0] = new Gray(200);
-
-
             }
 
         }
@@ -83,13 +85,13 @@ namespace Proiect
             double alfa = double.Parse(Alfa.Text);
             double beta = double.Parse(Beta.Text);
             this.outputImage = this.My_Image.Mul(alfa) + beta;
-            pictureBox.Image = this.outputImage.ToBitmap();
+            this.pictureBox.Image = this.outputImage.ToBitmap();
         }
         public void gama(ContentImage pictureBox, TextBox gama)
         {
             this.outputImage = this.My_Image.Clone();
             this.outputImage._GammaCorrect(double.Parse(gama.Text));
-            pictureBox.Image = this.outputImage.ToBitmap();
+            this.pictureBox.Image = this.outputImage.ToBitmap();
         }
         public async void blendingImage(ContentImage picture)
         {

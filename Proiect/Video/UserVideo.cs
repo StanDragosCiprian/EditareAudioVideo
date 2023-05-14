@@ -12,6 +12,7 @@ using System.Reflection.Emit;
 using Emgu.CV.Structure;
 using System.Drawing;
 
+
 namespace Proiect
 {
     internal class UserVideo:UserImage
@@ -21,14 +22,19 @@ namespace Proiect
         private double Fps;
         private bool IsReadingFrame;
         public VideoCapture capture;
+        public VideoCapture captureSecind= new VideoCapture("output.mp4");
 
-        private NumericUpDown numericUpDown1;
+
         private PictureBox pictureBox1;
         int Fourcc;
         int Width;
         int Height;
-        private System.Windows.Forms.Label label1;
-
+        Control control;
+        Mat mat;
+        public void setControl(Control control)
+        {
+            this.control = control;
+        }
         public void loadVideo(PictureBox pictureBox)
         {
             pictureBox1 = pictureBox;
@@ -37,9 +43,10 @@ namespace Proiect
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 this.capture = new VideoCapture(ofd.FileName);
-                Mat m = new Mat();
-                this.capture.Read(m);
-                pictureBox.Image = m.ToBitmap();
+
+                mat = new Mat();
+                this.capture.Read(mat);
+                pictureBox.Image = mat.ToBitmap();
 
                 this.TotalFrame = (int)this.capture.Get(CapProp.FrameCount);
                 this.Fps = this.capture.Get(CapProp.Fps);
@@ -54,7 +61,7 @@ namespace Proiect
             while (isPlaying())
             {
                 this.FrameNo += 1;
-                var mat = this.capture.QueryFrame();
+                mat = this.capture.QueryFrame();
                 pictureBox1.Image = mat.ToBitmap();
                 await Task.Delay(1000 / Convert.ToInt16(this.Fps));
               
@@ -68,8 +75,8 @@ namespace Proiect
         {
             this.FrameNo += frame;
             this.capture.Set(CapProp.PosFrames, this.FrameNo);
-            var mat = this.capture.QueryFrame();
-            pictureBox1.Image = mat.ToBitmap();
+            mat = this.capture.QueryFrame();
+            //pictureBox1.Image = mat.ToBitmap();
             await Task.Delay(1000 / Convert.ToInt16(this.Fps));
 
         }
@@ -83,6 +90,10 @@ namespace Proiect
             }
             this.IsReadingFrame = true;
             this.ReadAllFrames();
+        }
+        public Mat getMat()
+        {
+            return this.mat;
         }
         public void playForward()
         {
@@ -134,6 +145,32 @@ namespace Proiect
                 FrameNo++;
             }
         }
+        public void generateNewVideo(PictureBox picture, Rectangle rect)
+        {
+            int Fourcc = Convert.ToInt32(capture.Get(CapProp.FourCC));
+            int Width = Convert.ToInt32(capture.Get(CapProp.FrameWidth));
+            int Height = Convert.ToInt32(capture.Get(CapProp.FrameHeight));
+            var Fps = capture.Get(CapProp.Fps);
+            string destinationpath = @"E:\\Facultate\\Editare audio video\\zzz.mp4";
+            using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
+            {
+           
+
+                var FrameNo = 1;
+                while (FrameNo < TotalFrame)
+                {
+                    capture.Read(mat);
+                    Image<Bgr, byte> img = mat.ToImage<Bgr, byte>();
+                    img.ROI = new Rectangle(0,0, rect.Width, rect.Height);
+           
+                    
+                    FrameNo++;
+                }
+
+            }
+
+
+        }
         public void writingVideo(UserImage userImage)
         {
 
@@ -162,7 +199,13 @@ namespace Proiect
             }
 
         }
-        
+        public void setGreyScale(PictureBox picture)
+        {
+            this.setUserImage(mat.ToImage<Bgr, byte>());
+            this.setPictureBox(picture);
+            this.convertToGrey();
+        }
+     
 
     }
 }
