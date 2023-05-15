@@ -38,11 +38,11 @@
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ROI = new System.Windows.Forms.ToolStripMenuItem();
+            this.greyScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contentLoad = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.loadVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadCameraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.greyScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.videoEdit.SuspendLayout();
             this.contentLoad.SuspendLayout();
             this.SuspendLayout();
@@ -80,26 +80,27 @@
             // writeToolStripMenuItem
             // 
             this.writeToolStripMenuItem.Name = "writeToolStripMenuItem";
-            this.writeToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.writeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.writeToolStripMenuItem.Text = "Write";
             // 
             // combineToolStripMenuItem
             // 
             this.combineToolStripMenuItem.Name = "combineToolStripMenuItem";
-            this.combineToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.combineToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.combineToolStripMenuItem.Text = "Combine";
+            this.combineToolStripMenuItem.Click += new System.EventHandler(this.combineToolStripMenuItem_Click);
             // 
             // playToolStripMenuItem
             // 
             this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.playToolStripMenuItem.Text = "Play";
             this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -115,9 +116,16 @@
             // ROI
             // 
             this.ROI.Name = "ROI";
-            this.ROI.Size = new System.Drawing.Size(224, 26);
+            this.ROI.Size = new System.Drawing.Size(157, 26);
             this.ROI.Text = "ROI";
             this.ROI.Click += new System.EventHandler(this.ROI_Click);
+            // 
+            // greyScaleToolStripMenuItem
+            // 
+            this.greyScaleToolStripMenuItem.Name = "greyScaleToolStripMenuItem";
+            this.greyScaleToolStripMenuItem.Size = new System.Drawing.Size(157, 26);
+            this.greyScaleToolStripMenuItem.Text = "GreyScale";
+            this.greyScaleToolStripMenuItem.Click += new System.EventHandler(this.greyScaleToolStripMenuItem_Click);
             // 
             // contentLoad
             // 
@@ -147,13 +155,6 @@
             this.loadCameraToolStripMenuItem.Name = "loadCameraToolStripMenuItem";
             this.loadCameraToolStripMenuItem.Size = new System.Drawing.Size(166, 24);
             this.loadCameraToolStripMenuItem.Text = "Load Camera";
-            // 
-            // greyScaleToolStripMenuItem
-            // 
-            this.greyScaleToolStripMenuItem.Name = "greyScaleToolStripMenuItem";
-            this.greyScaleToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.greyScaleToolStripMenuItem.Text = "GreyScale";
-            this.greyScaleToolStripMenuItem.Click += new System.EventHandler(this.greyScaleToolStripMenuItem_Click);
             // 
             // VideoForm
             // 

@@ -18,7 +18,7 @@ namespace Proiect
         bool isRoi = false;
         MenuStyle menuStyle;
         int id = 0;
-        int indexLocationY = 40;
+        int indexLocationY = 85;
         int indexSelected = 0;
         UserImage userImage = new UserImage();
        
@@ -175,7 +175,7 @@ namespace Proiect
                 case 'x':
                     
                         videoList[indexSelected].getVideo().playForward();
-                    videoList[indexSelected].displayRoi(videoList[indexSelected], videoList[indexSelected].getVideo().getMat().ToImage<Bgr, byte>());
+                   // videoList[indexSelected].displayRoi(videoList[indexSelected], videoList[indexSelected].getVideo().getMat().ToImage<Bgr, byte>());
               
                     break;
                 case 'X':
@@ -206,6 +206,11 @@ namespace Proiect
         private void greyScaleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             videoList[indexSelected].getVideo().setGreyScale(videoList[indexSelected]);
+        }
+
+        private void combineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abruptway();
         }
     }
 }

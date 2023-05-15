@@ -57,9 +57,9 @@ namespace Proiect
             if (this.My_Image != null)
             {
 
-                for (int i = 0; i < this.My_Image.Width / 2; i++)
+                for (int i = 0; i < this.My_Image.Width / 10; i++)
                 {
-                    for (int j = 0; j < this.My_Image.Height / 2; j++)
+                    for (int j = 0; j < this.My_Image.Height / 10; j++)
                     {
                         this.My_Image[j, i] = new Bgr(Color.FromArgb(0, 255, 255, 255));
                     }
@@ -69,6 +69,24 @@ namespace Proiect
                 this.gray_image[0, 0] = new Gray(200);
             }
 
+        }
+        public Image<Gray,Byte> makeGrey()
+        {
+            if (this.My_Image != null)
+            {
+
+                for (int i = 0; i < this.My_Image.Width / 10; i++)
+                {
+                    for (int j = 0; j < this.My_Image.Height / 10; j++)
+                    {
+                        this.My_Image[j, i] = new Bgr(Color.FromArgb(0, 255, 255, 255));
+                    }
+                }
+                this.gray_image = this.My_Image.Convert<Gray, byte>();
+                return this.gray_image;
+                //this.gray_image[0, 0] = new Gray(200);
+            }
+            return this.gray_image;
         }
         public void histogram()
         {

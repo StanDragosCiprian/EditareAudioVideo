@@ -11,6 +11,7 @@ using System.Windows.Media.Media3D;
 using System.Reflection.Emit;
 using Emgu.CV.Structure;
 using System.Drawing;
+using Emgu.CV.Flann;
 
 
 namespace Proiect
@@ -22,19 +23,14 @@ namespace Proiect
         private double Fps;
         private bool IsReadingFrame;
         public VideoCapture capture;
-        public VideoCapture captureSecind= new VideoCapture("output.mp4");
-
+        private List<Mat> video = new List<Mat>();
 
         private PictureBox pictureBox1;
         int Fourcc;
         int Width;
         int Height;
-        Control control;
         Mat mat;
-        public void setControl(Control control)
-        {
-            this.control = control;
-        }
+      
         public void loadVideo(PictureBox pictureBox)
         {
             pictureBox1 = pictureBox;
@@ -46,13 +42,26 @@ namespace Proiect
 
                 mat = new Mat();
                 this.capture.Read(mat);
-                pictureBox.Image = mat.ToBitmap();
+                
 
                 this.TotalFrame = (int)this.capture.Get(CapProp.FrameCount);
                 this.Fps = this.capture.Get(CapProp.Fps);
                 this.FrameNo = 1;
-                
-           
+                this.fillVideo();
+                pictureBox.Image = video[0].ToBitmap();
+
+
+            }
+        }
+        public void fillVideo()
+        {
+            int frame = 1;
+            while (frame < TotalFrame)
+            {
+                Mat mat = new Mat();
+                this.capture.Read(mat);
+                this.video.Add(mat);
+                frame++;
             }
         }
         public async void ReadAllFrames()
@@ -61,8 +70,9 @@ namespace Proiect
             while (isPlaying())
             {
                 this.FrameNo += 1;
-                mat = this.capture.QueryFrame();
-                pictureBox1.Image = mat.ToBitmap();
+                //mat = this.capture.QueryFrame();
+                //this.setUserImage(mat.ToImage<Bgr, byte>());
+                pictureBox1.Image = video[this.FrameNo].ToBitmap();
                 await Task.Delay(1000 / Convert.ToInt16(this.Fps));
               
             }
@@ -74,9 +84,7 @@ namespace Proiect
         public async void controlFrame(int frame)
         {
             this.FrameNo += frame;
-            this.capture.Set(CapProp.PosFrames, this.FrameNo);
-            mat = this.capture.QueryFrame();
-            //pictureBox1.Image = mat.ToBitmap();
+            pictureBox1.Image = video[this.FrameNo].ToBitmap();
             await Task.Delay(1000 / Convert.ToInt16(this.Fps));
 
         }
@@ -91,18 +99,17 @@ namespace Proiect
             this.IsReadingFrame = true;
             this.ReadAllFrames();
         }
-        public Mat getMat()
-        {
-            return this.mat;
-        }
+    
         public void playForward()
         {
             if (this.capture == null)
             {
                 return;
             }
-            this.IsReadingFrame = true;
-            this.controlFrame(1);
+            if (this.FrameNo < this.TotalFrame)
+            {
+                this.controlFrame(1);
+            }
         }
         public void playBack()
         {
@@ -110,8 +117,9 @@ namespace Proiect
             {
                 return;
             }
-       
+       if(this.FrameNo>0) { 
             this.controlFrame(-1);
+            }
         }
         public void stop()
         {
@@ -124,53 +132,59 @@ namespace Proiect
         }
         public void setWritingVideo()
         {
-            int Fourcc = Convert.ToInt32(this.capture.Get(CapProp.FourCC));
-            int Width = Convert.ToInt32(this.capture.Get(CapProp.FrameWidth));
-            int Height = Convert.ToInt32(this.capture.Get(CapProp.FrameHeight));
-            var Fps = this.capture.Get(CapProp.Fps);
-            var TotalFrame = capture.Get(CapProp.FrameCount);
+            this.Fourcc = Convert.ToInt32(this.capture.Get(CapProp.FourCC));
+            this.Width = Convert.ToInt32(this.capture.Get(CapProp.FrameWidth));
+            this.Height = Convert.ToInt32(this.capture.Get(CapProp.FrameHeight));
+            this.Fps = this.capture.Get(CapProp.Fps);
+
         }
 
         public void readFrame(VideoWriter writer)
         {
             this.setWritingVideo();
-            Mat m = new Mat();
 
-            var FrameNo = 1;
+
+            var FrameNo = 0;
             while (FrameNo < TotalFrame)
             {
-                capture.Read(m);
-                Image<Bgr,byte> img=m.ToImage<Bgr,byte>();
-                writer.Write(img.Mat);
+                writer.Write(video[FrameNo]);
                 FrameNo++;
             }
+
         }
-        public void generateNewVideo(PictureBox picture, Rectangle rect)
+        public void displayRoi(Rectangle rect)
         {
-            int Fourcc = Convert.ToInt32(capture.Get(CapProp.FourCC));
-            int Width = Convert.ToInt32(capture.Get(CapProp.FrameWidth));
-            int Height = Convert.ToInt32(capture.Get(CapProp.FrameHeight));
-            var Fps = capture.Get(CapProp.Fps);
+            //mouseDown = false;
+            //var img = new Bitmap(picture.Image).ToImage<Bgr, byte>();
+            //img.ROI = rect;
+            //var imgROI = img.Copy();
+            //this.Image = imgROI.ToBitmap();
+            for (int index = 0; index < this.video.Count; index++)
+            {
+                var img = new Bitmap(this.video[index].ToBitmap()).ToImage<Bgr, byte>();
+                img.ROI = rect;
+                var imgROI = img.Copy();
+                this.video[index] = imgROI.ToBitmap().ToMat();
+            }
+        }
+        public void combineVideo()
+        {
+            this.setWritingVideo();
             string destinationpath = @"E:\\Facultate\\Editare audio video\\zzz.mp4";
             using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
             {
-           
+
 
                 var FrameNo = 1;
                 while (FrameNo < TotalFrame)
                 {
-                    capture.Read(mat);
-                    Image<Bgr, byte> img = mat.ToImage<Bgr, byte>();
-                    img.ROI = new Rectangle(0,0, rect.Width, rect.Height);
-           
-                    
+
+                    writer.Write(video[FrameNo].ToBitmap().ToMat());
                     FrameNo++;
                 }
-
             }
-
-
         }
+      
         public void writingVideo(UserImage userImage)
         {
 
@@ -201,11 +215,28 @@ namespace Proiect
         }
         public void setGreyScale(PictureBox picture)
         {
-            this.setUserImage(mat.ToImage<Bgr, byte>());
-            this.setPictureBox(picture);
-            this.convertToGrey();
+
+            for(int index = 0; index < this.video.Count; index++)
+            {
+                this.setUserImage(this.video[index].ToImage<Bgr, byte>());
+                this.video[index] = this.makeGrey().ToBitmap().ToMat();
+            }
+            
+            
         }
-     
+        public void carousel()
+        {
+            for (int index = 0; index < this.video.Count; index++)
+            {
+                this.setUserImage(this.video[index].ToImage<Bgr, byte>());
+                this.video[index] = this.makeGrey().ToBitmap().ToMat();
+                index++;
+                this.setUserImage(this.video[index].ToImage<Bgr, byte>());
+         
+            }
+        }
+
+
 
     }
 }

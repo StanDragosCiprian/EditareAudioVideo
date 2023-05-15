@@ -43,20 +43,13 @@ namespace Proiect
         }
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
-            
+            mouseDown = false;
             if (this.Image == null || rect == Rectangle.Empty)
             { return; }
-            this.displayRoi(this);
+            this.userVideo.displayRoi(rect);
 
         }
-        public void displayRoi(PictureBox picture)
-        {
-            mouseDown = false;
-            var img = new Bitmap(picture.Image).ToImage<Bgr, byte>();
-            img.ROI = rect;
-            var imgROI = img.Copy();
-            this.Image = imgROI.ToBitmap();
-        }
+        
         public void displayRoi(PictureBox picture,Image<Bgr,Byte> image)
         {
             mouseDown = false;
