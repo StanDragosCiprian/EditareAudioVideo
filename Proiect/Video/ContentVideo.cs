@@ -47,16 +47,20 @@ namespace Proiect
             if (this.Image == null || rect == Rectangle.Empty)
             { return; }
             this.userVideo.displayRoi(rect);
+            this.notInitMouseEvents();
 
         }
         
         public void displayRoi(PictureBox picture,Image<Bgr,Byte> image)
         {
             mouseDown = false;
-            var img = new Bitmap(image.ToBitmap()).ToImage<Bgr, byte>();
-            img.ROI = rect;
-            var imgROI = img.Copy();
-            picture.Image = imgROI.ToBitmap();
+         
+                var img = new Bitmap(image.ToBitmap()).ToImage<Bgr, byte>();
+                img.ROI = rect;
+                var imgROI = img.Copy();
+                picture.Image = imgROI.ToBitmap();
+            
+
         }
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
@@ -79,6 +83,13 @@ namespace Proiect
             this.MouseDown += this.pictureBox_MouseDown;
             this.MouseUp += this.pictureBox_MouseUp;
             this.MouseMove += this.pictureBox_MouseMove;
+        }
+        public void notInitMouseEvents()
+        {
+            this.Paint -= this.pictureBox_Paint;
+            this.MouseDown -= this.pictureBox_MouseDown;
+            this.MouseUp -= this.pictureBox_MouseUp;
+            this.MouseMove -= this.pictureBox_MouseMove;
         }
         public void initMouseEventsDezactive()
         {

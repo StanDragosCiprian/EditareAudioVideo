@@ -70,11 +70,10 @@ namespace Proiect
             while (isPlaying())
             {
                 this.FrameNo += 1;
-                //mat = this.capture.QueryFrame();
-                //this.setUserImage(mat.ToImage<Bgr, byte>());
                 pictureBox1.Image = video[this.FrameNo].ToBitmap();
                 await Task.Delay(1000 / Convert.ToInt16(this.Fps));
-              
+
+
             }
         }
         public bool isPlaying()
@@ -166,6 +165,7 @@ namespace Proiect
                 var imgROI = img.Copy();
                 this.video[index] = imgROI.ToBitmap().ToMat();
             }
+            
         }
         public void combineVideo()
         {

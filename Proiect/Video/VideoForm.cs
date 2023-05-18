@@ -195,15 +195,15 @@ namespace Proiect
 
         private void ROI_Click(object sender, EventArgs e)
         {
-            if (!isRoi)
-            {
-                videoList[indexSelected].initMouseEvents();
 
-            }
+            videoList[indexSelected].initMouseEvents();
             
-        }
+            ((ToolStripMenuItem)sender).Click -= new EventHandler(ROI_Click);
 
-        private void greyScaleToolStripMenuItem_Click(object sender, EventArgs e)
+        }
+            
+
+            private void greyScaleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             videoList[indexSelected].getVideo().setGreyScale(videoList[indexSelected]);
         }
