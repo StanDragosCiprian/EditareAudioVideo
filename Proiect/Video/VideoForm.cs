@@ -212,5 +212,10 @@ namespace Proiect
         {
             abruptway();
         }
+
+        private void caruselToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().carousel();
+        }
     }
 }

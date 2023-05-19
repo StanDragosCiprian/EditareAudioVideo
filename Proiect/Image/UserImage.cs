@@ -57,9 +57,9 @@ namespace Proiect
             if (this.My_Image != null)
             {
 
-                for (int i = 0; i < this.My_Image.Width / 10; i++)
+                for (int i = 0; i < this.My_Image.Width / 100; i++)
                 {
-                    for (int j = 0; j < this.My_Image.Height / 10; j++)
+                    for (int j = 0; j < this.My_Image.Height / 100; j++)
                     {
                         this.My_Image[j, i] = new Bgr(Color.FromArgb(0, 255, 255, 255));
                     }
@@ -75,9 +75,9 @@ namespace Proiect
             if (this.My_Image != null)
             {
 
-                for (int i = 0; i < this.My_Image.Width / 10; i++)
+                for (int i = 0; i < this.My_Image.Width / 15; i++)
                 {
-                    for (int j = 0; j < this.My_Image.Height / 10; j++)
+                    for (int j = 0; j < this.My_Image.Height / 15; j++)
                     {
                         this.My_Image[j, i] = new Bgr(Color.FromArgb(0, 255, 255, 255));
                     }
@@ -97,6 +97,10 @@ namespace Proiect
             HistogramViewer hist2 = new HistogramViewer();
             hist2.HistogramCtrl.GenerateHistograms(this.outputImage, 255);
             hist2.Show();
+        }
+        public Image<Bgr,byte> subtractColor(Bgr color)
+        {
+            return this.My_Image.SubR(color);
         }
         public void Brignes(ContentImage pictureBox, TextBox Alfa, TextBox Beta)
         {

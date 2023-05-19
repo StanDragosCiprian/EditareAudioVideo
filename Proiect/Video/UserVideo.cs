@@ -12,25 +12,26 @@ using System.Reflection.Emit;
 using Emgu.CV.Structure;
 using System.Drawing;
 using Emgu.CV.Flann;
+using System.Xml.Linq;
 
 
 namespace Proiect
 {
-    internal class UserVideo:UserImage
+    internal class UserVideo : UserImage
     {
 
         private int TotalFrame, FrameNo;
         private double Fps;
         private bool IsReadingFrame;
         public VideoCapture capture;
-        private List<Mat> video = new List<Mat>();
+        protected List<Mat> video = new List<Mat>();
 
         private PictureBox pictureBox1;
         int Fourcc;
         int Width;
         int Height;
         Mat mat;
-      
+
         public void loadVideo(PictureBox pictureBox)
         {
             pictureBox1 = pictureBox;
@@ -42,7 +43,7 @@ namespace Proiect
 
                 mat = new Mat();
                 this.capture.Read(mat);
-                
+
 
                 this.TotalFrame = (int)this.capture.Get(CapProp.FrameCount);
                 this.Fps = this.capture.Get(CapProp.Fps);
@@ -52,6 +53,7 @@ namespace Proiect
 
 
             }
+
         }
         public void fillVideo()
         {
@@ -63,9 +65,15 @@ namespace Proiect
                 this.video.Add(mat);
                 frame++;
             }
+
         }
+
+
+
         public async void ReadAllFrames()
         {
+
+
 
             while (isPlaying())
             {
@@ -98,7 +106,7 @@ namespace Proiect
             this.IsReadingFrame = true;
             this.ReadAllFrames();
         }
-    
+
         public void playForward()
         {
             if (this.capture == null)
@@ -116,8 +124,8 @@ namespace Proiect
             {
                 return;
             }
-       if(this.FrameNo>0) { 
-            this.controlFrame(-1);
+            if (this.FrameNo > 0) {
+                this.controlFrame(-1);
             }
         }
         public void stop()
@@ -158,6 +166,8 @@ namespace Proiect
             //img.ROI = rect;
             //var imgROI = img.Copy();
             //this.Image = imgROI.ToBitmap();
+
+       
             for (int index = 0; index < this.video.Count; index++)
             {
                 var img = new Bitmap(this.video[index].ToBitmap()).ToImage<Bgr, byte>();
@@ -165,7 +175,9 @@ namespace Proiect
                 var imgROI = img.Copy();
                 this.video[index] = imgROI.ToBitmap().ToMat();
             }
-            
+            pictureBox1.Image = video[this.FrameNo].ToBitmap();
+
+
         }
         public void combineVideo()
         {
@@ -184,7 +196,7 @@ namespace Proiect
                 }
             }
         }
-      
+
         public void writingVideo(UserImage userImage)
         {
 
@@ -216,27 +228,53 @@ namespace Proiect
         public void setGreyScale(PictureBox picture)
         {
 
-            for(int index = 0; index < this.video.Count; index++)
-            {
-                this.setUserImage(this.video[index].ToImage<Bgr, byte>());
-                this.video[index] = this.makeGrey().ToBitmap().ToMat();
-            }
-            
-            
-        }
-        public void carousel()
-        {
             for (int index = 0; index < this.video.Count; index++)
             {
                 this.setUserImage(this.video[index].ToImage<Bgr, byte>());
                 this.video[index] = this.makeGrey().ToBitmap().ToMat();
-                index++;
+            }
+            pictureBox1.Image = video[this.FrameNo].ToBitmap();
+
+        }
+        private void treeFrameWait(ref int index, Bgr bgr)
+        {
+            for (int i = 0; i < 6; i++)
+            {
                 this.setUserImage(this.video[index].ToImage<Bgr, byte>());
-         
+                this.video[index] = this.subtractColor(bgr).Mat;
+                index++;
             }
         }
-
-
-
+        private void treeFrameGreyWait(ref int index)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                this.setUserImage(this.video[index].ToImage<Bgr, byte>());
+                this.video[index] = this.makeGrey().ToBitmap().ToMat();
+                index++;
+            }
+        }
+        public void carousel()
+        {
+            int index = 0;
+            while (index < TotalFrame)
+            {
+                try
+                {
+                    this.treeFrameGreyWait(ref index);
+                    this.treeFrameWait(ref index, new Bgr(0, 0, 255));
+                    this.treeFrameWait(ref index, new Bgr(0, 255, 0));
+                    this.treeFrameWait(ref index, new Bgr(255, 0, 0));
+                }catch(ArgumentOutOfRangeException e)
+                {
+                    pictureBox1.Image = video[this.FrameNo].ToBitmap();
+                    break;
+                }
+            }
+        }
     }
 }
+
+
+    
+

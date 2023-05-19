@@ -9,6 +9,7 @@ namespace Proiect
     internal class ContentVideo : ContentImage
     {
         private UserVideo userVideo = new UserVideo();
+        
         private UserCamera userCamera = new UserCamera();
         Rectangle rect;
         Point StartROI; 
@@ -50,18 +51,6 @@ namespace Proiect
             this.notInitMouseEvents();
 
         }
-        
-        public void displayRoi(PictureBox picture,Image<Bgr,Byte> image)
-        {
-            mouseDown = false;
-         
-                var img = new Bitmap(image.ToBitmap()).ToImage<Bgr, byte>();
-                img.ROI = rect;
-                var imgROI = img.Copy();
-                picture.Image = imgROI.ToBitmap();
-            
-
-        }
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
             if (mouseDown)
@@ -91,13 +80,7 @@ namespace Proiect
             this.MouseUp -= this.pictureBox_MouseUp;
             this.MouseMove -= this.pictureBox_MouseMove;
         }
-        public void initMouseEventsDezactive()
-        {
-            this.Paint -= this.pictureBox_Paint;
-            this.MouseDown -= this.pictureBox_MouseDown;
-            this.MouseUp -= this.pictureBox_MouseUp;
-            this.MouseMove -= this.pictureBox_MouseMove;
-        }
+   
 
 
     }
