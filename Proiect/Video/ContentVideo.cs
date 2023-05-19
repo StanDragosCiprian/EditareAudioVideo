@@ -18,6 +18,7 @@ namespace Proiect
         {
             return this.userVideo;
         }
+       
         public UserCamera getCamera()
         {
             return this.userCamera;

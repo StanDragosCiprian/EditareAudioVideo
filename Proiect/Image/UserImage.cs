@@ -72,21 +72,10 @@ namespace Proiect
         }
         public Image<Gray,Byte> makeGrey()
         {
-            if (this.My_Image != null)
-            {
-
-                for (int i = 0; i < this.My_Image.Width / 15; i++)
-                {
-                    for (int j = 0; j < this.My_Image.Height / 15; j++)
-                    {
-                        this.My_Image[j, i] = new Bgr(Color.FromArgb(0, 255, 255, 255));
-                    }
-                }
-                this.gray_image = this.My_Image.Convert<Gray, byte>();
-                return this.gray_image;
-                //this.gray_image[0, 0] = new Gray(200);
-            }
-            return this.gray_image;
+            Image<Bgr, byte> inputImage = this.My_Image; // Load your image here
+            Image<Gray, byte>[] channels = inputImage.Split(); // Split the image into its individual color channels
+            Image<Gray, byte> redChannel = channels[1];
+            return redChannel;
         }
         public void histogram()
         {
@@ -109,11 +98,25 @@ namespace Proiect
             this.outputImage = this.My_Image.Mul(alfa) + beta;
             this.pictureBox.Image = this.outputImage.ToBitmap();
         }
+        public Image<Bgr, byte> Brignes(TextBox Alfa, TextBox Beta)
+        {
+            double alfa = double.Parse(Alfa.Text);
+            double beta = double.Parse(Beta.Text);
+            this.outputImage = this.My_Image.Mul(alfa) + beta;
+            return this.outputImage.ToBitmap().ToImage<Bgr,byte>();
+        }
         public void gama(ContentImage pictureBox, TextBox gama)
         {
             this.outputImage = this.My_Image.Clone();
             this.outputImage._GammaCorrect(double.Parse(gama.Text));
             this.pictureBox.Image = this.outputImage.ToBitmap();
+        }
+        public Image<Bgr,byte> getGama( TextBox gama)
+        {
+            var img = this.My_Image.Clone();
+            img._EqualizeHist();
+            img._GammaCorrect(double.Parse(gama.Text));
+            return img.ToBitmap().ToImage<Bgr,byte>();
         }
         public async void blendingImage(ContentImage picture)
         {

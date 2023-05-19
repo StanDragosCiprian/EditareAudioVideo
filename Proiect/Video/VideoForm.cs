@@ -15,12 +15,10 @@ namespace Proiect
             InitializeComponent();
         }
         List<ContentVideo> videoList = new List<ContentVideo>();
-        bool isRoi = false;
         MenuStyle menuStyle;
         int id = 0;
         int indexLocationY = 85;
         int indexSelected = 0;
-        UserImage userImage = new UserImage();
        
         public  void abruptway()
         {
@@ -31,7 +29,7 @@ namespace Proiect
             string destinationpath = @"E:\\Facultate\\Editare audio video\\zzz.mp4";
             using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
             {
-                videoList.ForEach(allVideo =>  allVideo.getVideo().readFrame(writer) );
+                videoList.ForEach(allVideo =>  allVideo.getVideo().readFrame(writer));
             }
         }
        
@@ -216,6 +214,60 @@ namespace Proiect
         private void caruselToolStripMenuItem_Click(object sender, EventArgs e)
         {
             videoList[indexSelected].getVideo().carousel();
+        }
+
+        private void bToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            madeLightVisible();
+        }
+        private void madeLightVisible()
+        {
+            button4.Visible = true; 
+            button5.Visible=true;
+            label1.Visible = true;
+            label2.Visible=true;
+            GamaValue.Visible = true;
+            Alfa.Visible= true;
+            Beta.Visible = true;
+            gama.Visible = true;
+        }
+        private void madeLightInVisible()
+        {
+            button4.Visible = false;
+            button5.Visible = false;
+            label1.Visible = false;
+            label2.Visible = false;
+            GamaValue.Visible = false;
+            Alfa.Visible = false;
+            Beta.Visible = false;
+            gama.Visible = false;
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().brignesVidep(Alfa, Beta);
+            madeLightInVisible();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().gamaVidep(gama);
+            madeLightInVisible();
+        }
+
+        private void redToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().extractColor(new Bgr(255, 255, 0));
+        }
+
+        private void greenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().extractColor(new Bgr(255, 0, 255));
+        }
+
+        private void blueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().extractColor(new Bgr(0, 255, 255));
         }
     }
 }

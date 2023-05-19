@@ -13,25 +13,49 @@ using Emgu.CV.Structure;
 using System.Drawing;
 using Emgu.CV.Flann;
 using System.Xml.Linq;
-
-
 namespace Proiect
 {
     internal class UserVideo : UserImage
     {
-
         private int TotalFrame, FrameNo;
         private double Fps;
         private bool IsReadingFrame;
         public VideoCapture capture;
         protected List<Mat> video = new List<Mat>();
-
         private PictureBox pictureBox1;
         int Fourcc;
         int Width;
         int Height;
         Mat mat;
+        public void brignesVidep(TextBox alfa, TextBox beta)
+        {
+            for(int i=0;i<video.Count; i++)
+            {
+                this.setUserImage(video[i].ToImage<Bgr, byte>());
+                video[i]=this.Brignes(alfa,beta).Mat; 
+            }
+            pictureBox1.Image = video[this.FrameNo].ToBitmap();
+        }
+        public void extractColor(Bgr bgr)
+        {
+            for (int i = 0; i < video.Count; i++)
+            {
+                
+                    this.setUserImage(this.video[i].ToImage<Bgr, byte>());
+                    this.video[i] = this.subtractColor(bgr).Mat;
 
+            }
+            pictureBox1.Image = video[this.FrameNo].ToBitmap();
+        }
+        public void gamaVidep(TextBox gama)
+        {
+            for (int i = 0; i < video.Count; i++)
+            {
+                this.setUserImage(video[i].ToImage<Bgr, byte>());
+                video[i] = this.getGama(gama).Mat;
+            }
+            pictureBox1.Image = video[this.FrameNo].ToBitmap();
+        }
         public void loadVideo(PictureBox pictureBox)
         {
             pictureBox1 = pictureBox;
@@ -40,20 +64,14 @@ namespace Proiect
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 this.capture = new VideoCapture(ofd.FileName);
-
                 mat = new Mat();
                 this.capture.Read(mat);
-
-
                 this.TotalFrame = (int)this.capture.Get(CapProp.FrameCount);
                 this.Fps = this.capture.Get(CapProp.Fps);
                 this.FrameNo = 1;
                 this.fillVideo();
                 pictureBox.Image = video[0].ToBitmap();
-
-
             }
-
         }
         public void fillVideo()
         {
@@ -65,23 +83,14 @@ namespace Proiect
                 this.video.Add(mat);
                 frame++;
             }
-
         }
-
-
-
         public async void ReadAllFrames()
         {
-
-
-
             while (isPlaying())
             {
                 this.FrameNo += 1;
                 pictureBox1.Image = video[this.FrameNo].ToBitmap();
                 await Task.Delay(1000 / Convert.ToInt16(this.Fps));
-
-
             }
         }
         public bool isPlaying()
@@ -93,10 +102,7 @@ namespace Proiect
             this.FrameNo += frame;
             pictureBox1.Image = video[this.FrameNo].ToBitmap();
             await Task.Delay(1000 / Convert.ToInt16(this.Fps));
-
         }
-
-
         public void play()
         {
             if (this.capture == null)
@@ -143,31 +149,19 @@ namespace Proiect
             this.Width = Convert.ToInt32(this.capture.Get(CapProp.FrameWidth));
             this.Height = Convert.ToInt32(this.capture.Get(CapProp.FrameHeight));
             this.Fps = this.capture.Get(CapProp.Fps);
-
         }
-
         public void readFrame(VideoWriter writer)
         {
             this.setWritingVideo();
-
-
-            var FrameNo = 0;
+            var FrameNo = 1;
             while (FrameNo < TotalFrame)
             {
-                writer.Write(video[FrameNo]);
+                writer.Write(video[FrameNo-1]);
                 FrameNo++;
             }
-
         }
         public void displayRoi(Rectangle rect)
         {
-            //mouseDown = false;
-            //var img = new Bitmap(picture.Image).ToImage<Bgr, byte>();
-            //img.ROI = rect;
-            //var imgROI = img.Copy();
-            //this.Image = imgROI.ToBitmap();
-
-       
             for (int index = 0; index < this.video.Count; index++)
             {
                 var img = new Bitmap(this.video[index].ToBitmap()).ToImage<Bgr, byte>();
@@ -176,27 +170,7 @@ namespace Proiect
                 this.video[index] = imgROI.ToBitmap().ToMat();
             }
             pictureBox1.Image = video[this.FrameNo].ToBitmap();
-
-
         }
-        public void combineVideo()
-        {
-            this.setWritingVideo();
-            string destinationpath = @"E:\\Facultate\\Editare audio video\\zzz.mp4";
-            using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
-            {
-
-
-                var FrameNo = 1;
-                while (FrameNo < TotalFrame)
-                {
-
-                    writer.Write(video[FrameNo].ToBitmap().ToMat());
-                    FrameNo++;
-                }
-            }
-        }
-
         public void writingVideo(UserImage userImage)
         {
 
@@ -223,7 +197,6 @@ namespace Proiect
                 }
 
             }
-
         }
         public void setGreyScale(PictureBox picture)
         {
@@ -274,7 +247,3 @@ namespace Proiect
         }
     }
 }
-
-
-    
-
