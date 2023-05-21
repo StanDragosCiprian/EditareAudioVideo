@@ -142,10 +142,7 @@ namespace Proiect
             indexSelected = ((ContentVideo)sender).id;
         }
 
-        private void videoEdit_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-            MessageBox.Show(e.ClickedItem.Text);
-        }
+   
 
         private void playToolStripMenuItem_Click(object sender, EventArgs e)
         {

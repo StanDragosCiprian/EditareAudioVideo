@@ -14,6 +14,10 @@ namespace Proiect
     {
         private UserAudio userAudio = new UserAudio();
         public int id;
+        public UserAudio getAudio()
+        {
+            return this.userAudio;
+        }
         public void loadAudio()
         {
             this.userAudio.loadAudio();
@@ -23,6 +27,7 @@ namespace Proiect
             this.Size = new Size(638, 538);
             this.id = id;
         }
+ 
         public void displayAudio()
         {
             using (var reader = new AudioFileReader(@"E:\Facultate\Editare audio video\120_F_StringChordReverse_732.wav"))

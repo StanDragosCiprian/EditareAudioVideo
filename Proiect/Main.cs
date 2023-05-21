@@ -176,7 +176,7 @@ namespace Proiect
 
         private void Mix_Click(object sender, EventArgs e)
         {
-            userAudio.mixt();
+            //userAudio.mixt();
         }
 
         private void mono_Click(object sender, EventArgs e)
@@ -191,7 +191,7 @@ namespace Proiect
 
         private void Concatenating_Click(object sender, EventArgs e)
         {
-            userAudio.concatenating();
+            //userAudio.concatenating();
         }
 
         private void switchToImage_Click(object sender, EventArgs e)

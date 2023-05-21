@@ -99,7 +99,6 @@
     <Compile Include="Video\ContentVideo.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Audio\DisplayAudio.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

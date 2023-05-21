@@ -78,7 +78,6 @@
             this.effectsToolStripMenuItem});
             this.videoEdit.Name = "contextMenuStrip1";
             this.videoEdit.Size = new System.Drawing.Size(211, 80);
-            this.videoEdit.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.videoEdit_ItemClicked);
             // 
             // videoToolStripMenuItem
             // 

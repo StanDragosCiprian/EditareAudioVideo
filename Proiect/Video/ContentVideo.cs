@@ -14,6 +14,7 @@ namespace Proiect
         Rectangle rect;
         Point StartROI; 
         bool mouseDown;
+        
         public UserVideo getVideo()
         {
             return this.userVideo;

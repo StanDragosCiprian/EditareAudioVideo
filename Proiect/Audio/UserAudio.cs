@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using NAudio.Utils;
+using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,10 @@ namespace Proiect
             audioFile.Dispose();
             audioFile = null;
         }
+        public OpenFileDialog getFileLocation()
+        {
+            return this.ofd;
+        }
         public void loadAudio()
         {
             ofd = new OpenFileDialog();
@@ -39,6 +44,19 @@ namespace Proiect
             }
             
         }
+        public void loadAudioExtern(OpenFileDialog ofd)
+        {
+            if (this.outputDevice == null)
+            {
+                this.outputDevice = new WaveOutEvent();
+                this.outputDevice.PlaybackStopped += this.OnPlaybackStopped;
+            }
+            if (this.audioFile == null)
+            {
+                this.audioFile = new AudioFileReader(ofd.FileName);
+                this.outputDevice.Init(this.audioFile);
+            }
+        }
         public void play()
         {
             this.outputDevice.Play();
@@ -49,7 +67,7 @@ namespace Proiect
             {
                 WaveFileWriter.CreateWaveFile(@"E:\Facultate\Editare audio video\Stuff (mp3cut.net).wav", reader);
             }
-            }
+        }
         public void converMp3()
         {
             using (var reader = new MediaFoundationReader(@"E:\Facultate\Editare audio video\Stuff (mp3cut.net).wav"))
@@ -57,13 +75,13 @@ namespace Proiect
                 WaveFileWriter.CreateWaveFile(@"E:\Facultate\Editare audio video\Stuff.mp3", reader);
             }
         }
-        public void mixt()
+        public void mixt(OpenFileDialog ofd1, OpenFileDialog ofd2)
         {
-            using (var reader1 = new AudioFileReader(@"E:\Facultate\Editare audio video\120_F_StringChordReverse_732.wav"))
-            using (var reader2 = new AudioFileReader(@"E:\Facultate\Editare audio video\Stuff (mp3cut.net).wav"))
+            using (var reader1 = new AudioFileReader(ofd1.FileName)) 
+            using (var reader2 = new AudioFileReader(ofd2.FileName))
             {
                 var mixer = new MixingSampleProvider(new[] { reader1, reader2 });
-                WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\mix.wav", mixer);
+                WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\mix2.wav", mixer);
             }
 
         }
@@ -87,11 +105,12 @@ namespace Proiect
                 WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\sterio.wav", stereo);
             }
         }
-        public void concatenating()
+        public void concatenating(OpenFileDialog ofd1, OpenFileDialog ofd2, OpenFileDialog ofd3)
         {
-            var first = new AudioFileReader(@"E:\Facultate\Editare audio video\Stuff.mp3");
-            var second = new AudioFileReader(@"E:\Facultate\Editare audio video\Stuff.mp3");
-            var third = new AudioFileReader(@"E:\Facultate\Editare audio video\Stuff.mp3");
+     
+            var first = new AudioFileReader(ofd1.FileName);
+            var second = new AudioFileReader(ofd2.FileName);
+            var third = new AudioFileReader(ofd3.FileName);
             var playlist = new ConcatenatingSampleProvider(new[] { first, second, third });
 
             WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\playlist.wav", playlist);
