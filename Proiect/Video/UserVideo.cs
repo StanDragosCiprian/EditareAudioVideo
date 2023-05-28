@@ -13,6 +13,7 @@ using Emgu.CV.Structure;
 using System.Drawing;
 using Emgu.CV.Flann;
 using System.Xml.Linq;
+using Emgu.CV.VideoStab;
 namespace Proiect
 {
     internal class UserVideo : UserImage
@@ -22,39 +23,16 @@ namespace Proiect
         private bool IsReadingFrame;
         public VideoCapture capture;
         protected List<Mat> video = new List<Mat>();
+        protected List<Mat> video2 = new List<Mat>();
         private PictureBox pictureBox1;
         int Fourcc;
         int Width;
         int Height;
         Mat mat;
-        public void brignesVidep(TextBox alfa, TextBox beta)
+       
+        public List<Mat> getAllVideo()
         {
-            for(int i=0;i<video.Count; i++)
-            {
-                this.setUserImage(video[i].ToImage<Bgr, byte>());
-                video[i]=this.Brignes(alfa,beta).Mat; 
-            }
-            pictureBox1.Image = video[this.FrameNo].ToBitmap();
-        }
-        public void extractColor(Bgr bgr)
-        {
-            for (int i = 0; i < video.Count; i++)
-            {
-                
-                    this.setUserImage(this.video[i].ToImage<Bgr, byte>());
-                    this.video[i] = this.subtractColor(bgr).Mat;
-
-            }
-            pictureBox1.Image = video[this.FrameNo].ToBitmap();
-        }
-        public void gamaVidep(TextBox gama)
-        {
-            for (int i = 0; i < video.Count; i++)
-            {
-                this.setUserImage(video[i].ToImage<Bgr, byte>());
-                video[i] = this.getGama(gama).Mat;
-            }
-            pictureBox1.Image = video[this.FrameNo].ToBitmap();
+            return video;
         }
         public void loadVideo(PictureBox pictureBox)
         {
@@ -83,6 +61,15 @@ namespace Proiect
                 this.video.Add(mat);
                 frame++;
             }
+            
+            this.video2.AddRange(this.video);
+
+        }
+        public void comeBackVideo()
+        {
+                this.video.Clear();
+                this.video.AddRange(this.video2);
+               
         }
         public async void ReadAllFrames()
         {
@@ -200,14 +187,15 @@ namespace Proiect
         }
         public void setGreyScale(PictureBox picture)
         {
-
+            this.comeBackVideo();
             for (int index = 0; index < this.video.Count; index++)
             {
                 this.setUserImage(this.video[index].ToImage<Bgr, byte>());
                 this.video[index] = this.makeGrey().ToBitmap().ToMat();
             }
-            pictureBox1.Image = video[this.FrameNo].ToBitmap();
 
+            pictureBox1.Image = video[this.FrameNo].ToBitmap();
+            
         }
         private void treeFrameWait(ref int index, Bgr bgr)
         {
@@ -227,8 +215,11 @@ namespace Proiect
                 index++;
             }
         }
+
+        
         public void carousel()
         {
+            this.comeBackVideo();
             int index = 0;
             while (index < TotalFrame)
             {
@@ -244,6 +235,108 @@ namespace Proiect
                     break;
                 }
             }
+        }
+        private void lastTenFrame(List<Mat> uVideo)
+        {
+            List<byte> alfaValue = new List<byte>() { 255, 130, 98, 90, 87, 80, 75, 63, 57, 9, 0 };
+            alfaValue.Reverse();
+            int index = 0;
+            int totalFrame = uVideo.Count - 11;
+            for (int frame= totalFrame; frame < uVideo.Count - 1; frame++)
+            {
+
+                Image<Bgr, byte> img = uVideo[frame].ToImage<Bgr, byte>();
+                Image<Bgra, byte> imgWithAlpha = img.Convert<Bgra, byte>();
+                for (int i = 0; i < imgWithAlpha.Height; i++)
+                {
+                    for (int j = 0; j < imgWithAlpha.Width; j++)
+                    {
+                        imgWithAlpha.Data[i, j, 3] = alfaValue[index];
+                    }
+                }
+                uVideo[frame] = imgWithAlpha.Mat;
+                index++;
+            }
+        }
+        public void crossDissolve(List<Mat> uVideo)
+        {
+            
+        
+            this.setWritingVideo();
+            string destinationpath = @"E:\\Facultate\\crossDissolve.mp4";
+            using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
+            {
+                var FrameNo = 1;
+                var FrameNo2 = 0;
+                double alpha = 0.0;
+                Image<Bgra, byte> img1;
+                while (FrameNo < (this.video.Count+uVideo.Count))
+                {
+                    try { 
+                        
+                    using (Image<Bgra, byte> img2 = uVideo[FrameNo2].ToImage<Bgra, byte>())
+                    {
+                            if(FrameNo< (this.video.Count - 50))
+                            {
+                                img1 = this.video[FrameNo].ToImage<Bgra, byte>();
+                                writer.Write(img1.Mat);
+                            }
+                            else if(FrameNo > (this.video.Count - 50)&& FrameNo < this.video.Count)
+                            {
+                                img1 = this.video[FrameNo].ToImage<Bgra, byte>();
+                                alpha += 0.01;
+                                CvInvoke.AddWeighted(img1, alpha, img2, 1-alpha, 0.0, img1);
+                                
+                                writer.Write(img1.Mat);
+                          
+                            }
+                            else
+                            {
+                                writer.Write(img2.Mat);
+                                FrameNo2++;
+                            }
+                    }
+                }catch(ArgumentOutOfRangeException e)
+                {
+                    break;
+                }
+                FrameNo++;
+                }
+            }
+                
+
+        }
+        public void brignesVidep(TextBox alfa, TextBox beta)
+        {
+            this.comeBackVideo();
+            for (int i = 0; i < video.Count; i++)
+            {
+                this.setUserImage(video[i].ToImage<Bgr, byte>());
+                video[i] = this.Brignes(alfa, beta).Mat;
+            }
+            pictureBox1.Image = video[this.FrameNo].ToBitmap();
+        }
+        public void extractColor(Bgr bgr)
+        {
+            this.comeBackVideo();
+            for (int i = 0; i < video.Count; i++)
+            {
+
+                this.setUserImage(this.video[i].ToImage<Bgr, byte>());
+                this.video[i] = this.subtractColor(bgr).Mat;
+
+            }
+            pictureBox1.Image = video[this.FrameNo].ToBitmap();
+        }
+        public void gamaVidep(TextBox gama)
+        {
+            this.comeBackVideo();
+            for (int i = 0; i < video.Count; i++)
+            {
+                this.setUserImage(video[i].ToImage<Bgr, byte>());
+                video[i] = this.getGama(gama).Mat;
+            }
+            pictureBox1.Image = video[this.FrameNo].ToBitmap();
         }
     }
 }

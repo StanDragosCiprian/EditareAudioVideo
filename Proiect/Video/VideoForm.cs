@@ -125,10 +125,7 @@ namespace Proiect
             {
          
                 case Keys.Left:
-                    //if (videoList[indexSelected].getVideo().isPlaying())
-                    //{
-                    //    videoList[indexSelected].getVideo().playForward();
-                    //}
+                
                     MessageBox.Show("mere");
                     break;
                 case Keys.Right:
@@ -265,6 +262,11 @@ namespace Proiect
         private void blueToolStripMenuItem_Click(object sender, EventArgs e)
         {
             videoList[indexSelected].getVideo().extractColor(new Bgr(0, 255, 255));
+        }
+
+        private void crossDissolveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().crossDissolve(videoList[1].getVideo().getAllVideo());
         }
     }
 }

@@ -110,5 +110,17 @@ namespace Proiect
         {
             this.audioList[indexSelected].getAudio().concatenating(this.audioList[audioSelected[0]].getAudio().getFileLocation(), this.audioList[audioSelected[1]].getAudio().getFileLocation(), this.audioList[audioSelected[2]].getAudio().getFileLocation());
         }
+
+        private void pitchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Visible = true;
+            textBox2.Visible = true;
+            button1.Visible = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.audioList[indexSelected].getAudio().pitchLevel(textBox1, textBox2);
+        }
     }
 }

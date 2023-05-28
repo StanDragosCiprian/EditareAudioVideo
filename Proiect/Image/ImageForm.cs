@@ -49,9 +49,8 @@ namespace Proiect
 
             this.Controls.Add(contentList[indexImagae]);
             contentList[indexImagae].positionContentY(indexLocationY);
-            //userImage.loadImage(contentList[indexImagae]);
-            contentList[indexImagae].loadImage();
-            //userImage.setNotProccesImage(userImage.getUserImage());
+
+            contentList[indexImagae].GetImage().loadImage();
             indexImagae++;
             indexLocationY += 613;
         }

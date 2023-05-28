@@ -115,5 +115,15 @@ namespace Proiect
 
             WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\playlist.wav", playlist);
         }
+        public void pitchLevel(TextBox text1, TextBox text2)
+        {
+            using (var inputReader = new AudioFileReader(ofd.FileName))
+            {
+                var stereo = new StereoToMonoSampleProvider(inputReader);
+                stereo.LeftVolume = float.Parse(text1.Text); 
+                stereo.RightVolume = float.Parse(text2.Text); 
+                WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\pitch.wav", stereo);
+            }
+        }
     }
 }

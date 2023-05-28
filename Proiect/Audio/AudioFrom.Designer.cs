@@ -41,6 +41,10 @@
             this.monoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sterioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.concatingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pitchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.audioLoad.SuspendLayout();
             this.audioEdit.SuspendLayout();
             this.SuspendLayout();
@@ -75,7 +79,7 @@
             this.audioEdit.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.audioToolStripMenuItem});
             this.audioEdit.Name = "audioEdit";
-            this.audioEdit.Size = new System.Drawing.Size(211, 56);
+            this.audioEdit.Size = new System.Drawing.Size(119, 28);
             // 
             // audioToolStripMenuItem
             // 
@@ -86,7 +90,8 @@
             this.mixtToolStripMenuItem,
             this.monoToolStripMenuItem,
             this.sterioToolStripMenuItem,
-            this.concatingToolStripMenuItem});
+            this.concatingToolStripMenuItem,
+            this.pitchToolStripMenuItem});
             this.audioToolStripMenuItem.Name = "audioToolStripMenuItem";
             this.audioToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.audioToolStripMenuItem.Text = "Audio";
@@ -140,12 +145,49 @@
             this.concatingToolStripMenuItem.Text = "Concating";
             this.concatingToolStripMenuItem.Click += new System.EventHandler(this.concatingToolStripMenuItem_Click);
             // 
+            // pitchToolStripMenuItem
+            // 
+            this.pitchToolStripMenuItem.Name = "pitchToolStripMenuItem";
+            this.pitchToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.pitchToolStripMenuItem.Text = "Pitch";
+            this.pitchToolStripMenuItem.Click += new System.EventHandler(this.pitchToolStripMenuItem_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(1430, 130);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 22);
+            this.textBox1.TabIndex = 49;
+            this.textBox1.Visible = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(1430, 158);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 22);
+            this.textBox2.TabIndex = 50;
+            this.textBox2.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1430, 186);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 23);
+            this.button1.TabIndex = 51;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // AudioFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1582, 853);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel2);
             this.Name = "AudioFrom";
             this.Text = "AudioFrom";
@@ -155,6 +197,7 @@
             this.audioLoad.ResumeLayout(false);
             this.audioEdit.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -172,5 +215,9 @@
         private System.Windows.Forms.ToolStripMenuItem monoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sterioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem concatingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pitchToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button button1;
     }
 }
