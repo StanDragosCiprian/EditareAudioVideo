@@ -237,7 +237,7 @@ namespace Proiect
 
         private void crossDissolveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            videoList[indexSelected].getVideo().crossDissolve(videoList[1].getVideo().getAllVideo());
+            videoList[0].getVideo().crossDissolve(videoList[1].getVideo().getAllVideo());
         }
         private void getIndexAudio(object sender, EventArgs e)
         {
