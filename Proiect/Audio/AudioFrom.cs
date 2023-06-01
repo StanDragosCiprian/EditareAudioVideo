@@ -22,7 +22,7 @@ namespace Proiect
             InitializeComponent();
         }
         List<ContentAudio> audioList = new List<ContentAudio>();
-        List<int> audioSelected= new List<int>(3);   
+        List<int> audioSelected = new List<int>(3);
         MenuStyle menuStyle;
         int indexLocationY = 40;
         int indexSelected = 0;
@@ -44,7 +44,7 @@ namespace Proiect
             }
         }
 
- 
+
         private void audioEditEvents(object sender, MouseEventArgs e)
         {
             showMenu(e, audioEdit);
@@ -73,7 +73,7 @@ namespace Proiect
         }
         private void AudioFrom_MouseDown(object sender, MouseEventArgs e)
         {
-            showMenu(e,audioLoad);
+            showMenu(e, audioLoad);
         }
 
         private void playToolStripMenuItem_Click(object sender, EventArgs e)
@@ -93,7 +93,7 @@ namespace Proiect
 
         private void mixtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.audioList[0].getAudio().mixt(this.audioList[0].getAudio().getFileLocation(),this.audioList[indexSelected].getAudio().getFileLocation());
+            this.audioList[0].getAudio().mixt(this.audioList[0].getAudio().getFileLocation(), this.audioList[indexSelected].getAudio().getFileLocation());
         }
 
         private void monoToolStripMenuItem_Click(object sender, EventArgs e)

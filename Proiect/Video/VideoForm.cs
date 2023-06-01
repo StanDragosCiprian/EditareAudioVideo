@@ -15,11 +15,13 @@ namespace Proiect
             InitializeComponent();
         }
         List<ContentVideo> videoList = new List<ContentVideo>();
+
         MenuStyle menuStyle;
         int id = 0;
         int indexLocationY = 85;
         int indexSelected = 0;
-       
+        int idAudio = 0;
+
         public  void abruptway()
         {
             int Fourcc = Convert.ToInt32(videoList[0].getVideo().capture.Get(CapProp.FourCC));
@@ -189,8 +191,9 @@ namespace Proiect
         {
 
             videoList[indexSelected].initMouseEvents();
-            
+            cancelROIToolStripMenuItem.Visible = true;
             ((ToolStripMenuItem)sender).Click -= new EventHandler(ROI_Click);
+            
 
         }
             
@@ -267,6 +270,15 @@ namespace Proiect
         private void crossDissolveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             videoList[indexSelected].getVideo().crossDissolve(videoList[1].getVideo().getAllVideo());
+        }
+        private void getIndexAudio(object sender, EventArgs e)
+        {
+            indexSelected = ((ContentAudio)sender).id;
+        }
+
+        private void cancelROIToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().cancelRoi();
         }
     }
 }

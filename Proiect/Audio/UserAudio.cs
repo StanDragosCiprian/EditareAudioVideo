@@ -15,6 +15,7 @@ namespace Proiect
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
         private OpenFileDialog ofd;
+
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
             outputDevice.Dispose();

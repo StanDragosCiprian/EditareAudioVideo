@@ -14,6 +14,7 @@ using System.Drawing;
 using Emgu.CV.Flann;
 using System.Xml.Linq;
 using Emgu.CV.VideoStab;
+using System.Diagnostics;
 namespace Proiect
 {
     internal class UserVideo : UserImage
@@ -24,12 +25,14 @@ namespace Proiect
         public VideoCapture capture;
         protected List<Mat> video = new List<Mat>();
         protected List<Mat> video2 = new List<Mat>();
+        protected List<Mat> roi = new List<Mat>();
         private PictureBox pictureBox1;
+        OpenFileDialog ofd;
         int Fourcc;
         int Width;
         int Height;
         Mat mat;
-       
+        bool isRoi = false;
         public List<Mat> getAllVideo()
         {
             return video;
@@ -38,7 +41,7 @@ namespace Proiect
         {
             pictureBox1 = pictureBox;
 
-            OpenFileDialog ofd = new OpenFileDialog();
+            ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 this.capture = new VideoCapture(ofd.FileName);
@@ -67,11 +70,28 @@ namespace Proiect
         }
         public void comeBackVideo()
         {
+            if (!isRoi)
+            {
                 this.video.Clear();
                 this.video.AddRange(this.video2);
-               
+            }
+            else
+            {
+                this.video.Clear();
+                this.video.AddRange(this.roi);
+            }
         }
-        public async void ReadAllFrames()
+        public void cancelRoi()
+        {
+           
+                this.video.Clear();
+                this.video.AddRange(this.video2);
+            this.pictureBox1.Image = this.video[0].ToBitmap();
+            this.isRoi = false;
+
+
+        }
+            public async void ReadAllFrames()
         {
             while (isPlaying())
             {
@@ -149,6 +169,7 @@ namespace Proiect
         }
         public void displayRoi(Rectangle rect)
         {
+            this.isRoi = true;
             for (int index = 0; index < this.video.Count; index++)
             {
                 var img = new Bitmap(this.video[index].ToBitmap()).ToImage<Bgr, byte>();
@@ -156,6 +177,7 @@ namespace Proiect
                 var imgROI = img.Copy();
                 this.video[index] = imgROI.ToBitmap().ToMat();
             }
+            this.roi.AddRange(this.video);
             pictureBox1.Image = video[this.FrameNo].ToBitmap();
         }
         public void writingVideo(UserImage userImage)
@@ -337,6 +359,29 @@ namespace Proiect
                 video[i] = this.getGama(gama).Mat;
             }
             pictureBox1.Image = video[this.FrameNo].ToBitmap();
+        }
+        public void combineVideoAudio(OpenFileDialog audioFileName)
+        {
+            
+            string videoPath = this.ofd.FileName;
+            string audioPath = audioFileName.FileName;
+            string outputPath = @"E:\Facultate\output.mp4";
+            string text = "Hello World!";
+            string fontPath = @"E:\Facultate\OpenSans-Bold.ttf";
+
+            ProcessStartInfo startInfo = new ProcessStartInfo();
+            startInfo.FileName = "ffmpeg.exe";
+            startInfo.Arguments = $"-i \"{videoPath}\" -i \"{audioPath}\" -vf drawtext=\"fontfile={fontPath}: text='{text}': fontcolor=white: fontsize=24: box=1: boxcolor=black@0.5: boxborderw=5: x=(w-text_w)/2: y=(h-text_h)/2\" -c:v libx264 -c:a copy \"{outputPath}\"";
+            startInfo.UseShellExecute = false;
+            startInfo.RedirectStandardOutput = true;
+            startInfo.RedirectStandardError = true;
+
+            using (Process process = new Process())
+            {
+                process.StartInfo = startInfo;
+                process.Start();
+                process.WaitForExit();
+            }
         }
     }
 }

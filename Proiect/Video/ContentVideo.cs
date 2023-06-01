@@ -9,17 +9,17 @@ namespace Proiect
     internal class ContentVideo : ContentImage
     {
         private UserVideo userVideo = new UserVideo();
-        
+
         private UserCamera userCamera = new UserCamera();
         Rectangle rect;
-        Point StartROI; 
+        Point StartROI;
         bool mouseDown;
-        
+
         public UserVideo getVideo()
         {
             return this.userVideo;
         }
-       
+
         public UserCamera getCamera()
         {
             return this.userCamera;
@@ -29,7 +29,7 @@ namespace Proiect
             this.Size = new Size(638, 538);
             this.id = id;
         }
-      
+
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (this.Image == null)
@@ -82,7 +82,7 @@ namespace Proiect
             this.MouseUp -= this.pictureBox_MouseUp;
             this.MouseMove -= this.pictureBox_MouseMove;
         }
-   
+
 
 
     }
