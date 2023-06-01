@@ -28,7 +28,7 @@ namespace Proiect
             int Width = Convert.ToInt32(videoList[0].getVideo().capture.Get(CapProp.FrameWidth));
             int Height = Convert.ToInt32(videoList[0].getVideo().capture.Get(CapProp.FrameHeight));
             var Fps = videoList[0].getVideo().capture.Get(CapProp.Fps);
-            string destinationpath = @"E:\\Facultate\\Editare audio video\\zzz.mp4";
+            string destinationpath = @"E:\\Facultate\\Editare audio video\\Combine.mp4";
             using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
             {
                 videoList.ForEach(allVideo => allVideo.getVideo().readFrame(writer));
