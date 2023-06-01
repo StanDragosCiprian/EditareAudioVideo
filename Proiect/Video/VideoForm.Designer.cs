@@ -37,6 +37,7 @@
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crossDissolveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.jumpFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ROI = new System.Windows.Forms.ToolStripMenuItem();
             this.greyScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +47,7 @@
             this.redToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.greenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelROIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contentLoad = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.loadVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,9 +60,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.cancelROIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.jumpFrame = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.playBackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.videoEdit.SuspendLayout();
             this.contentLoad.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -79,18 +85,20 @@
             this.videoToolStripMenuItem,
             this.effectsToolStripMenuItem});
             this.videoEdit.Name = "contextMenuStrip1";
-            this.videoEdit.Size = new System.Drawing.Size(211, 80);
+            this.videoEdit.Size = new System.Drawing.Size(123, 52);
             // 
             // videoToolStripMenuItem
             // 
             this.videoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.writeToolStripMenuItem,
-            this.combineToolStripMenuItem,
             this.playToolStripMenuItem,
             this.stopToolStripMenuItem,
+            this.playBackToolStripMenuItem,
+            this.jumpFrameToolStripMenuItem,
+            this.writeToolStripMenuItem,
+            this.combineToolStripMenuItem,
             this.crossDissolveToolStripMenuItem});
             this.videoToolStripMenuItem.Name = "videoToolStripMenuItem";
-            this.videoToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.videoToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
             this.videoToolStripMenuItem.Text = "Video";
             // 
             // writeToolStripMenuItem
@@ -127,6 +135,13 @@
             this.crossDissolveToolStripMenuItem.Text = "Cross dissolve";
             this.crossDissolveToolStripMenuItem.Click += new System.EventHandler(this.crossDissolveToolStripMenuItem_Click);
             // 
+            // jumpFrameToolStripMenuItem
+            // 
+            this.jumpFrameToolStripMenuItem.Name = "jumpFrameToolStripMenuItem";
+            this.jumpFrameToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.jumpFrameToolStripMenuItem.Text = "Jump frame";
+            this.jumpFrameToolStripMenuItem.Click += new System.EventHandler(this.jumpFrameToolStripMenuItem_Click);
+            // 
             // effectsToolStripMenuItem
             // 
             this.effectsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -137,7 +152,7 @@
             this.colorHistogramToolStripMenuItem,
             this.cancelROIToolStripMenuItem});
             this.effectsToolStripMenuItem.Name = "effectsToolStripMenuItem";
-            this.effectsToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.effectsToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
             this.effectsToolStripMenuItem.Text = "Effects";
             // 
             // ROI
@@ -199,6 +214,14 @@
             this.blueToolStripMenuItem.Text = "Blue";
             this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
             // 
+            // cancelROIToolStripMenuItem
+            // 
+            this.cancelROIToolStripMenuItem.Name = "cancelROIToolStripMenuItem";
+            this.cancelROIToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            this.cancelROIToolStripMenuItem.Text = "Cancel ROI";
+            this.cancelROIToolStripMenuItem.Visible = false;
+            this.cancelROIToolStripMenuItem.Click += new System.EventHandler(this.cancelROIToolStripMenuItem_Click);
+            // 
             // contentLoad
             // 
             this.contentLoad.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -230,6 +253,7 @@
             // 
             // GamaValue
             // 
+            this.GamaValue.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.GamaValue.AutoSize = true;
             this.GamaValue.Location = new System.Drawing.Point(1842, 228);
             this.GamaValue.Name = "GamaValue";
@@ -240,6 +264,7 @@
             // 
             // gama
             // 
+            this.gama.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.gama.Location = new System.Drawing.Point(1822, 203);
             this.gama.Name = "gama";
             this.gama.Size = new System.Drawing.Size(90, 22);
@@ -248,6 +273,7 @@
             // 
             // Alfa
             // 
+            this.Alfa.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Alfa.Location = new System.Drawing.Point(1610, 203);
             this.Alfa.Name = "Alfa";
             this.Alfa.Size = new System.Drawing.Size(100, 22);
@@ -256,6 +282,7 @@
             // 
             // Beta
             // 
+            this.Beta.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.Beta.Location = new System.Drawing.Point(1716, 203);
             this.Beta.Name = "Beta";
             this.Beta.Size = new System.Drawing.Size(100, 22);
@@ -264,6 +291,7 @@
             // 
             // label2
             // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(1746, 228);
             this.label2.Name = "label2";
@@ -274,6 +302,7 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(1640, 228);
             this.label1.Name = "label1";
@@ -284,6 +313,7 @@
             // 
             // button5
             // 
+            this.button5.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.button5.FlatAppearance.BorderSize = 0;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -300,6 +330,7 @@
             // 
             // button4
             // 
+            this.button4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -314,13 +345,54 @@
             this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // cancelROIToolStripMenuItem
+            // numericUpDown1
             // 
-            this.cancelROIToolStripMenuItem.Name = "cancelROIToolStripMenuItem";
-            this.cancelROIToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
-            this.cancelROIToolStripMenuItem.Text = "Cancel ROI";
-            this.cancelROIToolStripMenuItem.Visible = false;
-            this.cancelROIToolStripMenuItem.Click += new System.EventHandler(this.cancelROIToolStripMenuItem_Click);
+            this.numericUpDown1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.numericUpDown1.Location = new System.Drawing.Point(1426, 117);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1215752191,
+            23,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(160, 22);
+            this.numericUpDown1.TabIndex = 56;
+            this.numericUpDown1.Visible = false;
+            // 
+            // jumpFrame
+            // 
+            this.jumpFrame.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.jumpFrame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.jumpFrame.FlatAppearance.BorderSize = 0;
+            this.jumpFrame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.jumpFrame.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.jumpFrame.ForeColor = System.Drawing.Color.White;
+            this.jumpFrame.Location = new System.Drawing.Point(1426, 154);
+            this.jumpFrame.Name = "jumpFrame";
+            this.jumpFrame.Size = new System.Drawing.Size(160, 43);
+            this.jumpFrame.TabIndex = 57;
+            this.jumpFrame.Text = "Jump Frame";
+            this.jumpFrame.UseVisualStyleBackColor = false;
+            this.jumpFrame.Visible = false;
+            this.jumpFrame.Click += new System.EventHandler(this.jumpFrame_Click_1);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(1337, 119);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(83, 16);
+            this.label3.TabIndex = 58;
+            this.label3.Text = "Total Frame:";
+            this.label3.Visible = false;
+            // 
+            // playBackToolStripMenuItem
+            // 
+            this.playBackToolStripMenuItem.Name = "playBackToolStripMenuItem";
+            this.playBackToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.playBackToolStripMenuItem.Text = "Play Back";
+            this.playBackToolStripMenuItem.Click += new System.EventHandler(this.playBackToolStripMenuItem_Click);
             // 
             // VideoForm
             // 
@@ -328,6 +400,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1924, 1033);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.jumpFrame);
+            this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.GamaValue);
             this.Controls.Add(this.gama);
             this.Controls.Add(this.Alfa);
@@ -346,6 +421,7 @@
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VideoForm_MouseDown);
             this.videoEdit.ResumeLayout(false);
             this.contentLoad.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -357,8 +433,6 @@
         private System.Windows.Forms.ToolStripMenuItem videoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem writeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem combineToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem effectsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ROI;
         private System.Windows.Forms.ContextMenuStrip contentLoad;
@@ -382,5 +456,12 @@
         private System.Windows.Forms.ToolStripMenuItem blueToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem crossDissolveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cancelROIToolStripMenuItem;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Button jumpFrame;
+        private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem jumpFrameToolStripMenuItem;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolStripMenuItem playBackToolStripMenuItem;
     }
 }

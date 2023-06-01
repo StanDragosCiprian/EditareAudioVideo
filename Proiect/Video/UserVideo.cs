@@ -37,6 +37,15 @@ namespace Proiect
         {
             return video;
         }
+        public int getTotalFrame()
+        {
+            return this.TotalFrame;
+        }
+        public void setFrame(int frame)
+        {
+            this.FrameNo = frame;
+            this.pictureBox1.Image = this.video[frame].ToBitmap();
+        }
         public void loadVideo(PictureBox pictureBox)
         {
             pictureBox1 = pictureBox;
@@ -64,7 +73,7 @@ namespace Proiect
                 this.video.Add(mat);
                 frame++;
             }
-            
+
             this.video2.AddRange(this.video);
 
         }
@@ -83,19 +92,19 @@ namespace Proiect
         }
         public void cancelRoi()
         {
-           
-                this.video.Clear();
-                this.video.AddRange(this.video2);
+
+            this.video.Clear();
+            this.video.AddRange(this.video2);
             this.pictureBox1.Image = this.video[0].ToBitmap();
             this.isRoi = false;
 
 
         }
-            public async void ReadAllFrames()
+        public async void ReadAllFrames(int frame)
         {
             while (isPlaying())
             {
-                this.FrameNo += 1;
+                this.FrameNo += frame;
                 pictureBox1.Image = video[this.FrameNo].ToBitmap();
                 await Task.Delay(1000 / Convert.ToInt16(this.Fps));
             }
@@ -117,9 +126,17 @@ namespace Proiect
                 return;
             }
             this.IsReadingFrame = true;
-            this.ReadAllFrames();
+            this.ReadAllFrames(1);
         }
-
+        public void playBackFrame()
+        {
+            if (this.capture == null)
+            {
+                return;
+            }
+            this.IsReadingFrame = true;
+            this.ReadAllFrames(-1);
+        }
         public void playForward()
         {
             if (this.capture == null)
@@ -137,7 +154,8 @@ namespace Proiect
             {
                 return;
             }
-            if (this.FrameNo > 0) {
+            if (this.FrameNo > 0)
+            {
                 this.controlFrame(-1);
             }
         }
@@ -148,7 +166,7 @@ namespace Proiect
                 return;
             }
             this.IsReadingFrame = false;
-            this.ReadAllFrames();
+            this.ReadAllFrames(1);
         }
         public void setWritingVideo()
         {
@@ -163,7 +181,7 @@ namespace Proiect
             var FrameNo = 1;
             while (FrameNo < TotalFrame)
             {
-                writer.Write(video[FrameNo-1]);
+                writer.Write(video[FrameNo - 1]);
                 FrameNo++;
             }
         }
@@ -217,7 +235,7 @@ namespace Proiect
             }
 
             pictureBox1.Image = video[this.FrameNo].ToBitmap();
-            
+
         }
         private void treeFrameWait(ref int index, Bgr bgr)
         {
@@ -238,7 +256,7 @@ namespace Proiect
             }
         }
 
-        
+
         public void carousel()
         {
             this.comeBackVideo();
@@ -251,39 +269,17 @@ namespace Proiect
                     this.treeFrameWait(ref index, new Bgr(0, 0, 255));
                     this.treeFrameWait(ref index, new Bgr(0, 255, 0));
                     this.treeFrameWait(ref index, new Bgr(255, 0, 0));
-                }catch(ArgumentOutOfRangeException e)
+                }
+                catch (ArgumentOutOfRangeException e)
                 {
                     pictureBox1.Image = video[this.FrameNo].ToBitmap();
                     break;
                 }
             }
         }
-        private void lastTenFrame(List<Mat> uVideo)
-        {
-            List<byte> alfaValue = new List<byte>() { 255, 130, 98, 90, 87, 80, 75, 63, 57, 9, 0 };
-            alfaValue.Reverse();
-            int index = 0;
-            int totalFrame = uVideo.Count - 11;
-            for (int frame= totalFrame; frame < uVideo.Count - 1; frame++)
-            {
-
-                Image<Bgr, byte> img = uVideo[frame].ToImage<Bgr, byte>();
-                Image<Bgra, byte> imgWithAlpha = img.Convert<Bgra, byte>();
-                for (int i = 0; i < imgWithAlpha.Height; i++)
-                {
-                    for (int j = 0; j < imgWithAlpha.Width; j++)
-                    {
-                        imgWithAlpha.Data[i, j, 3] = alfaValue[index];
-                    }
-                }
-                uVideo[frame] = imgWithAlpha.Mat;
-                index++;
-            }
-        }
+       
         public void crossDissolve(List<Mat> uVideo)
         {
-            
-        
             this.setWritingVideo();
             string destinationpath = @"E:\\Facultate\\crossDissolve.mp4";
             using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
@@ -292,41 +288,41 @@ namespace Proiect
                 var FrameNo2 = 0;
                 double alpha = 0.0;
                 Image<Bgra, byte> img1;
-                while (FrameNo < (this.video.Count+uVideo.Count))
+                while (FrameNo < (this.video.Count + uVideo.Count))
                 {
-                    try { 
-                        
-                    using (Image<Bgra, byte> img2 = uVideo[FrameNo2].ToImage<Bgra, byte>())
+                    try
                     {
-                            if(FrameNo< (this.video.Count - 50))
+
+                        using (Image<Bgra, byte> img2 = uVideo[FrameNo2].ToImage<Bgra, byte>())
+                        {
+                            if (FrameNo < (this.video.Count - 50))
                             {
                                 img1 = this.video[FrameNo].ToImage<Bgra, byte>();
                                 writer.Write(img1.Mat);
                             }
-                            else if(FrameNo > (this.video.Count - 50)&& FrameNo < this.video.Count)
+                            else if (FrameNo > (this.video.Count - 50) && FrameNo < this.video.Count)
                             {
                                 img1 = this.video[FrameNo].ToImage<Bgra, byte>();
                                 alpha += 0.01;
-                                CvInvoke.AddWeighted(img1, alpha, img2, 1-alpha, 0.0, img1);
-                                
+                                CvInvoke.AddWeighted(img1, alpha, img2, 1 - alpha, 0.0, img1);
+
                                 writer.Write(img1.Mat);
-                          
+
                             }
                             else
                             {
                                 writer.Write(img2.Mat);
                                 FrameNo2++;
                             }
+                        }
                     }
-                }catch(ArgumentOutOfRangeException e)
-                {
-                    break;
-                }
-                FrameNo++;
+                    catch (ArgumentOutOfRangeException e)
+                    {
+                        break;
+                    }
+                    FrameNo++;
                 }
             }
-                
-
         }
         public void brignesVidep(TextBox alfa, TextBox beta)
         {
@@ -362,7 +358,7 @@ namespace Proiect
         }
         public void combineVideoAudio(OpenFileDialog audioFileName)
         {
-            
+
             string videoPath = this.ofd.FileName;
             string audioPath = audioFileName.FileName;
             string outputPath = @"E:\Facultate\output.mp4";

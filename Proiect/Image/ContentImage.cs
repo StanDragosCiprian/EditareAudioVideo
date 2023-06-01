@@ -10,6 +10,7 @@ namespace Proiect
         public ContentImage(int id)
         {
             this.Size = new Size(638, 538);
+            this.Cursor = Cursors.Hand;
             this.id = id;
             
         }

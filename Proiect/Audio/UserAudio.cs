@@ -43,7 +43,7 @@ namespace Proiect
                     this.outputDevice.Init(this.audioFile);
                 }
             }
-            
+
         }
         public void loadAudioExtern(OpenFileDialog ofd)
         {
@@ -78,7 +78,7 @@ namespace Proiect
         }
         public void mixt(OpenFileDialog ofd1, OpenFileDialog ofd2)
         {
-            using (var reader1 = new AudioFileReader(ofd1.FileName)) 
+            using (var reader1 = new AudioFileReader(ofd1.FileName))
             using (var reader2 = new AudioFileReader(ofd2.FileName))
             {
                 var mixer = new MixingSampleProvider(new[] { reader1, reader2 });
@@ -108,7 +108,7 @@ namespace Proiect
         }
         public void concatenating(OpenFileDialog ofd1, OpenFileDialog ofd2, OpenFileDialog ofd3)
         {
-     
+
             var first = new AudioFileReader(ofd1.FileName);
             var second = new AudioFileReader(ofd2.FileName);
             var third = new AudioFileReader(ofd3.FileName);
@@ -121,8 +121,8 @@ namespace Proiect
             using (var inputReader = new AudioFileReader(ofd.FileName))
             {
                 var stereo = new StereoToMonoSampleProvider(inputReader);
-                stereo.LeftVolume = float.Parse(text1.Text); 
-                stereo.RightVolume = float.Parse(text2.Text); 
+                stereo.LeftVolume = float.Parse(text1.Text);
+                stereo.RightVolume = float.Parse(text2.Text);
                 WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\pitch.wav", stereo);
             }
         }
