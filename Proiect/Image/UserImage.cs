@@ -111,6 +111,7 @@ namespace Proiect
             this.outputImage._GammaCorrect(double.Parse(gama.Text));
             this.pictureBox.Image = this.outputImage.ToBitmap();
         }
+
         public Image<Bgr,byte> getGama( TextBox gama)
         {
             var img = this.My_Image.Clone();

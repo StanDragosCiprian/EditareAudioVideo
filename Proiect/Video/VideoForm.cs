@@ -28,7 +28,7 @@ namespace Proiect
             int Width = Convert.ToInt32(videoList[0].getVideo().capture.Get(CapProp.FrameWidth));
             int Height = Convert.ToInt32(videoList[0].getVideo().capture.Get(CapProp.FrameHeight));
             var Fps = videoList[0].getVideo().capture.Get(CapProp.Fps);
-            string destinationpath = @"E:\\Facultate\\Editare audio video\\Combine.mp4";
+            string destinationpath = @"E:\\Facultate\\Editare audio video\\VideoWriten.mp4";
             using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
             {
                 videoList.ForEach(allVideo => allVideo.getVideo().readFrame(writer));
@@ -183,7 +183,7 @@ namespace Proiect
 
         private void combineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            abruptway();
+            videoList[indexSelected].getVideo().combineVideo(videoList[0].getVideo());
         }
 
         private void caruselToolStripMenuItem_Click(object sender, EventArgs e)
@@ -272,6 +272,30 @@ namespace Proiect
         private void playBackToolStripMenuItem_Click(object sender, EventArgs e)
         {
             videoList[indexSelected].getVideo().playBackFrame();
+        }
+
+        private void writeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abruptway();
+        }
+        private void resizeOption(bool isRect)
+        {
+            labelX.Visible =isRect;
+            labelY.Visible = isRect;
+            rectX.Visible = isRect;
+            rectY.Visible = isRect;
+            resizeRoi.Visible = isRect;
+            rectX.Text = videoList[indexSelected].getVideo().Rect.X.ToString();
+            rectY.Text = videoList[indexSelected].getVideo().Rect.Y.ToString();
+        }
+        private void resizeRoiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            resizeOption(true);
+        }
+
+        private void resizeRoi_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().resizeRoi(rectX, rectY);
         }
     }
 }

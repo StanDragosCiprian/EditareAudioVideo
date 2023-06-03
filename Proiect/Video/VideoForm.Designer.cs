@@ -32,12 +32,13 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.videoEdit = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.videoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.writeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.combineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.crossDissolveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playBackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jumpFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.writeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.combineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.crossDissolveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ROI = new System.Windows.Forms.ToolStripMenuItem();
             this.greyScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +64,12 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.jumpFrame = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.playBackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rectX = new System.Windows.Forms.TextBox();
+            this.rectY = new System.Windows.Forms.TextBox();
+            this.resizeRoi = new System.Windows.Forms.Button();
+            this.resizeRoiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelX = new System.Windows.Forms.Label();
+            this.labelY = new System.Windows.Forms.Label();
             this.videoEdit.SuspendLayout();
             this.contentLoad.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -98,21 +104,8 @@
             this.combineToolStripMenuItem,
             this.crossDissolveToolStripMenuItem});
             this.videoToolStripMenuItem.Name = "videoToolStripMenuItem";
-            this.videoToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.videoToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.videoToolStripMenuItem.Text = "Video";
-            // 
-            // writeToolStripMenuItem
-            // 
-            this.writeToolStripMenuItem.Name = "writeToolStripMenuItem";
-            this.writeToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.writeToolStripMenuItem.Text = "Write";
-            // 
-            // combineToolStripMenuItem
-            // 
-            this.combineToolStripMenuItem.Name = "combineToolStripMenuItem";
-            this.combineToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.combineToolStripMenuItem.Text = "Combine";
-            this.combineToolStripMenuItem.Click += new System.EventHandler(this.combineToolStripMenuItem_Click);
             // 
             // playToolStripMenuItem
             // 
@@ -128,12 +121,12 @@
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
-            // crossDissolveToolStripMenuItem
+            // playBackToolStripMenuItem
             // 
-            this.crossDissolveToolStripMenuItem.Name = "crossDissolveToolStripMenuItem";
-            this.crossDissolveToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.crossDissolveToolStripMenuItem.Text = "Cross dissolve";
-            this.crossDissolveToolStripMenuItem.Click += new System.EventHandler(this.crossDissolveToolStripMenuItem_Click);
+            this.playBackToolStripMenuItem.Name = "playBackToolStripMenuItem";
+            this.playBackToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.playBackToolStripMenuItem.Text = "Play Back";
+            this.playBackToolStripMenuItem.Click += new System.EventHandler(this.playBackToolStripMenuItem_Click);
             // 
             // jumpFrameToolStripMenuItem
             // 
@@ -142,17 +135,39 @@
             this.jumpFrameToolStripMenuItem.Text = "Jump frame";
             this.jumpFrameToolStripMenuItem.Click += new System.EventHandler(this.jumpFrameToolStripMenuItem_Click);
             // 
+            // writeToolStripMenuItem
+            // 
+            this.writeToolStripMenuItem.Name = "writeToolStripMenuItem";
+            this.writeToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.writeToolStripMenuItem.Text = "Write";
+            this.writeToolStripMenuItem.Click += new System.EventHandler(this.writeToolStripMenuItem_Click);
+            // 
+            // combineToolStripMenuItem
+            // 
+            this.combineToolStripMenuItem.Name = "combineToolStripMenuItem";
+            this.combineToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.combineToolStripMenuItem.Text = "Combine";
+            this.combineToolStripMenuItem.Click += new System.EventHandler(this.combineToolStripMenuItem_Click);
+            // 
+            // crossDissolveToolStripMenuItem
+            // 
+            this.crossDissolveToolStripMenuItem.Name = "crossDissolveToolStripMenuItem";
+            this.crossDissolveToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.crossDissolveToolStripMenuItem.Text = "Cross dissolve";
+            this.crossDissolveToolStripMenuItem.Click += new System.EventHandler(this.crossDissolveToolStripMenuItem_Click);
+            // 
             // effectsToolStripMenuItem
             // 
             this.effectsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ROI,
             this.greyScaleToolStripMenuItem,
             this.caruselToolStripMenuItem,
             this.bToolStripMenuItem,
             this.colorHistogramToolStripMenuItem,
+            this.ROI,
+            this.resizeRoiToolStripMenuItem,
             this.cancelROIToolStripMenuItem});
             this.effectsToolStripMenuItem.Name = "effectsToolStripMenuItem";
-            this.effectsToolStripMenuItem.Size = new System.Drawing.Size(122, 24);
+            this.effectsToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.effectsToolStripMenuItem.Text = "Effects";
             // 
             // ROI
@@ -196,21 +211,21 @@
             // redToolStripMenuItem
             // 
             this.redToolStripMenuItem.Name = "redToolStripMenuItem";
-            this.redToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.redToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.redToolStripMenuItem.Text = "Red";
             this.redToolStripMenuItem.Click += new System.EventHandler(this.redToolStripMenuItem_Click);
             // 
             // greenToolStripMenuItem
             // 
             this.greenToolStripMenuItem.Name = "greenToolStripMenuItem";
-            this.greenToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.greenToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.greenToolStripMenuItem.Text = "Green";
             this.greenToolStripMenuItem.Click += new System.EventHandler(this.greenToolStripMenuItem_Click);
             // 
             // blueToolStripMenuItem
             // 
             this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
-            this.blueToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
+            this.blueToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.blueToolStripMenuItem.Text = "Blue";
             this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
             // 
@@ -387,12 +402,69 @@
             this.label3.Text = "Total Frame:";
             this.label3.Visible = false;
             // 
-            // playBackToolStripMenuItem
+            // rectX
             // 
-            this.playBackToolStripMenuItem.Name = "playBackToolStripMenuItem";
-            this.playBackToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.playBackToolStripMenuItem.Text = "Play Back";
-            this.playBackToolStripMenuItem.Click += new System.EventHandler(this.playBackToolStripMenuItem_Click);
+            this.rectX.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.rectX.Location = new System.Drawing.Point(1828, 264);
+            this.rectX.Name = "rectX";
+            this.rectX.Size = new System.Drawing.Size(39, 22);
+            this.rectX.TabIndex = 59;
+            this.rectX.Visible = false;
+            // 
+            // rectY
+            // 
+            this.rectY.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.rectY.Location = new System.Drawing.Point(1873, 264);
+            this.rectY.Name = "rectY";
+            this.rectY.Size = new System.Drawing.Size(39, 22);
+            this.rectY.TabIndex = 60;
+            this.rectY.Visible = false;
+            // 
+            // resizeRoi
+            // 
+            this.resizeRoi.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.resizeRoi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.resizeRoi.FlatAppearance.BorderSize = 0;
+            this.resizeRoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.resizeRoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.resizeRoi.ForeColor = System.Drawing.Color.White;
+            this.resizeRoi.Location = new System.Drawing.Point(1828, 292);
+            this.resizeRoi.Name = "resizeRoi";
+            this.resizeRoi.Size = new System.Drawing.Size(84, 57);
+            this.resizeRoi.TabIndex = 61;
+            this.resizeRoi.Text = "Jump Frame";
+            this.resizeRoi.UseVisualStyleBackColor = false;
+            this.resizeRoi.Visible = false;
+            this.resizeRoi.Click += new System.EventHandler(this.resizeRoi_Click);
+            // 
+            // resizeRoiToolStripMenuItem
+            // 
+            this.resizeRoiToolStripMenuItem.Name = "resizeRoiToolStripMenuItem";
+            this.resizeRoiToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            this.resizeRoiToolStripMenuItem.Text = "Resize Roi";
+            this.resizeRoiToolStripMenuItem.Click += new System.EventHandler(this.resizeRoiToolStripMenuItem_Click);
+            // 
+            // labelX
+            // 
+            this.labelX.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.labelX.AutoSize = true;
+            this.labelX.Location = new System.Drawing.Point(1837, 245);
+            this.labelX.Name = "labelX";
+            this.labelX.Size = new System.Drawing.Size(15, 16);
+            this.labelX.TabIndex = 62;
+            this.labelX.Text = "X";
+            this.labelX.Visible = false;
+            // 
+            // labelY
+            // 
+            this.labelY.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.labelY.AutoSize = true;
+            this.labelY.Location = new System.Drawing.Point(1882, 245);
+            this.labelY.Name = "labelY";
+            this.labelY.Size = new System.Drawing.Size(16, 16);
+            this.labelY.TabIndex = 63;
+            this.labelY.Text = "Y";
+            this.labelY.Visible = false;
             // 
             // VideoForm
             // 
@@ -400,6 +472,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1924, 1033);
+            this.Controls.Add(this.labelY);
+            this.Controls.Add(this.labelX);
+            this.Controls.Add(this.resizeRoi);
+            this.Controls.Add(this.rectY);
+            this.Controls.Add(this.rectX);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.jumpFrame);
             this.Controls.Add(this.numericUpDown1);
@@ -463,5 +540,11 @@
         private System.Windows.Forms.ToolStripMenuItem jumpFrameToolStripMenuItem;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolStripMenuItem playBackToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resizeRoiToolStripMenuItem;
+        private System.Windows.Forms.TextBox rectX;
+        private System.Windows.Forms.TextBox rectY;
+        private System.Windows.Forms.Button resizeRoi;
+        private System.Windows.Forms.Label labelX;
+        private System.Windows.Forms.Label labelY;
     }
 }

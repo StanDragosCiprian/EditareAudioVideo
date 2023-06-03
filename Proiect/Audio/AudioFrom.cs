@@ -22,7 +22,7 @@ namespace Proiect
             InitializeComponent();
         }
         List<ContentAudio> audioList = new List<ContentAudio>();
-        List<int> audioSelected = new List<int>(3);
+
         MenuStyle menuStyle;
         int indexLocationY = 40;
         int indexSelected = 0;
@@ -38,10 +38,10 @@ namespace Proiect
         private void getIndex(object sender, EventArgs e)
         {
             this.indexSelected = ((ContentAudio)sender).id;
-            if ((Control.ModifierKeys & Keys.Shift) != 0)
-            {
-                audioSelected.Add(((ContentAudio)sender).id);
-            }
+            //if ((Control.ModifierKeys & Keys.Shift) != 0)
+            //{
+            //    audioSelected.Add(((ContentAudio)sender).id);
+            //}
         }
 
 
@@ -91,10 +91,7 @@ namespace Proiect
             this.audioList[indexSelected].getAudio().converMp3();
         }
 
-        private void mixtToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.audioList[0].getAudio().mixt(this.audioList[0].getAudio().getFileLocation(), this.audioList[indexSelected].getAudio().getFileLocation());
-        }
+  
 
         private void monoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -108,19 +105,19 @@ namespace Proiect
 
         private void concatingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.audioList[indexSelected].getAudio().concatenating(this.audioList[audioSelected[0]].getAudio().getFileLocation(), this.audioList[audioSelected[1]].getAudio().getFileLocation(), this.audioList[audioSelected[2]].getAudio().getFileLocation());
+            this.audioList[indexSelected].getAudio().mixt(this.audioList[0].getAudio().getFileLocation(), this.audioList[1].getAudio().getFileLocation());
+            this.audioList[indexSelected].getAudio().concatenating( this.audioList[2].getAudio().getFileLocation());
         }
 
         private void pitchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            textBox1.Visible = true;
-            textBox2.Visible = true;
-            button1.Visible = true;
+
+            this.audioList[indexSelected].getAudio().pitchLevel();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.audioList[indexSelected].getAudio().pitchLevel(textBox1, textBox2);
+            
         }
     }
 }

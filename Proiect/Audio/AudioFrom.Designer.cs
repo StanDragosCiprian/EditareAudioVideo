@@ -37,14 +37,10 @@
             this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertWavToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.convertMp3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mixtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.monoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sterioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.concatingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pitchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.audioLoad.SuspendLayout();
             this.audioEdit.SuspendLayout();
             this.SuspendLayout();
@@ -87,7 +83,6 @@
             this.playToolStripMenuItem,
             this.convertWavToolStripMenuItem,
             this.convertMp3ToolStripMenuItem,
-            this.mixtToolStripMenuItem,
             this.monoToolStripMenuItem,
             this.sterioToolStripMenuItem,
             this.concatingToolStripMenuItem,
@@ -117,13 +112,6 @@
             this.convertMp3ToolStripMenuItem.Text = "Convert Mp3";
             this.convertMp3ToolStripMenuItem.Click += new System.EventHandler(this.convertMp3ToolStripMenuItem_Click);
             // 
-            // mixtToolStripMenuItem
-            // 
-            this.mixtToolStripMenuItem.Name = "mixtToolStripMenuItem";
-            this.mixtToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.mixtToolStripMenuItem.Text = "Mixt";
-            this.mixtToolStripMenuItem.Click += new System.EventHandler(this.mixtToolStripMenuItem_Click);
-            // 
             // monoToolStripMenuItem
             // 
             this.monoToolStripMenuItem.Name = "monoToolStripMenuItem";
@@ -152,42 +140,12 @@
             this.pitchToolStripMenuItem.Text = "Pitch";
             this.pitchToolStripMenuItem.Click += new System.EventHandler(this.pitchToolStripMenuItem_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(1430, 130);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 49;
-            this.textBox1.Visible = false;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(1430, 158);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 50;
-            this.textBox2.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1430, 186);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 23);
-            this.button1.TabIndex = 51;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // AudioFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1582, 853);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.panel2);
             this.Name = "AudioFrom";
             this.Text = "AudioFrom";
@@ -197,7 +155,6 @@
             this.audioLoad.ResumeLayout(false);
             this.audioEdit.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -211,13 +168,9 @@
         private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem convertWavToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem convertMp3ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mixtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem monoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sterioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem concatingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pitchToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
     }
 }

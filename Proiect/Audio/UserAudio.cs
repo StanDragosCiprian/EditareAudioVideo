@@ -16,6 +16,7 @@ namespace Proiect
         private AudioFileReader audioFile;
         private OpenFileDialog ofd;
 
+
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
             outputDevice.Dispose();
@@ -81,7 +82,13 @@ namespace Proiect
             using (var reader1 = new AudioFileReader(ofd1.FileName))
             using (var reader2 = new AudioFileReader(ofd2.FileName))
             {
-                var mixer = new MixingSampleProvider(new[] { reader1, reader2 });
+                var stereo1 = new StereoToMonoSampleProvider(reader1);
+                stereo1.LeftVolume = 0.45f;
+                stereo1.RightVolume = 0.45f;
+                var stereo2 = new StereoToMonoSampleProvider(reader2);
+                stereo2.LeftVolume = 0.35f;
+                stereo2.RightVolume = 0.35f;
+                var mixer = new MixingSampleProvider(new[] { stereo1, stereo2 });
                 WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\mix2.wav", mixer);
             }
 
@@ -91,8 +98,8 @@ namespace Proiect
             using (var inputReader = new AudioFileReader(ofd.FileName))
             {
                 var mono = new StereoToMonoSampleProvider(inputReader);
-                mono.LeftVolume = 0.0f; // discard the left channel
-                mono.RightVolume = 1.0f; // keep the right channel
+                mono.LeftVolume = 0.0f;
+                mono.RightVolume = 1.0f;
                 WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\mono.wav", mono);
             }
         }
@@ -100,30 +107,34 @@ namespace Proiect
         {
             using (var inputReader = new AudioFileReader(ofd.FileName))
             {
+
                 var stereo = new MonoToStereoSampleProvider(inputReader);
                 stereo.LeftVolume = 0.0f; // silence in left channel
                 stereo.RightVolume = 1.0f; // full volume in right channel
                 WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\sterio.wav", stereo);
             }
         }
-        public void concatenating(OpenFileDialog ofd1, OpenFileDialog ofd2, OpenFileDialog ofd3)
+        public void concatenating(OpenFileDialog ofd3)
         {
 
-            var first = new AudioFileReader(ofd1.FileName);
-            var second = new AudioFileReader(ofd2.FileName);
-            var third = new AudioFileReader(ofd3.FileName);
-            var playlist = new ConcatenatingSampleProvider(new[] { first, second, third });
+            var mixerStero = new AudioFileReader(@"E:\Facultate\Editare audio video\mix2.wav");
+            var audio = new AudioFileReader(ofd3.FileName);
+            var playlist = new ConcatenatingSampleProvider(new[] { mixerStero.ToMono(), audio.ToMono() });
+            WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\mixerStero.wav", playlist);
 
-            WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\playlist.wav", playlist);
         }
-        public void pitchLevel(TextBox text1, TextBox text2)
+        public void pitchLevel()
         {
-            using (var inputReader = new AudioFileReader(ofd.FileName))
+            var inPath = @"E:\Facultate\Editare audio video\mixerStero.wav";
+            var semitone = Math.Pow(2, 1.0 / 12);
+            var upOneTone = semitone * semitone;
+            var downOneTone = 1.0 / upOneTone;
+            using (var reader = new MediaFoundationReader(inPath))
             {
-                var stereo = new StereoToMonoSampleProvider(inputReader);
-                stereo.LeftVolume = float.Parse(text1.Text);
-                stereo.RightVolume = float.Parse(text2.Text);
-                WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\pitch.wav", stereo);
+                var pitch = new SmbPitchShiftingSampleProvider(reader.ToSampleProvider());
+
+                WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\pitch.wav", pitch);
+
             }
         }
     }

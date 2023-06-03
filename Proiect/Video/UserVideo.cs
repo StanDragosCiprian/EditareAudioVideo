@@ -32,7 +32,11 @@ namespace Proiect
         int Width;
         int Height;
         Mat mat;
+        Rectangle rect;
         bool isRoi = false;
+
+        public Rectangle Rect { get => rect; set => rect = value; }
+
         public List<Mat> getAllVideo()
         {
             return video;
@@ -77,19 +81,48 @@ namespace Proiect
             this.video2.AddRange(this.video);
 
         }
+        public void resizeRoi(TextBox rectX, TextBox rectY)
+        {
+
+            int x = int.Parse(rectX.Text);
+            int y = int.Parse(rectY.Text);
+            this.rect.X -= x;
+            this.rect.Y -= y;  
+            this.rect.Width += x;
+            this.rect.Height += y;
+            this.displayRoi(this.rect);
+        }
         public void comeBackVideo()
         {
-            if (!isRoi)
+
+            this.video.Clear();
+            this.video.AddRange(this.video2);
+
+        }
+        public void combineWithRoi()
+        {
+            if (isRoi)
             {
-                this.video.Clear();
-                this.video.AddRange(this.video2);
-            }
-            else
-            {
-                this.video.Clear();
-                this.video.AddRange(this.roi);
+                var FrameNo = 1;
+                while (FrameNo < TotalFrame - 1)
+                {
+                    Image<Bgr, byte> img1 = this.video[FrameNo].ToImage<Bgr, byte>();
+                    Image<Bgr, byte> img2 = this.roi[FrameNo].ToImage<Bgr, byte>();
+                    for (int i = 0; i < img2.Height; i++)
+                    {
+                        for (int j = 0; j < img2.Width; j++)
+                        {
+                            img1.Data[i + rect.Y, j + rect.X, 0] = img2.Data[i, j, 0];
+                            img1.Data[i + rect.Y, j + rect.X, 1] = img2.Data[i, j, 1];
+                            img1.Data[i + rect.Y, j + rect.X, 2] = img2.Data[i, j, 2];
+                        }
+                    }
+                    this.video[FrameNo] = img1.Mat;
+                    FrameNo++;
+                }
             }
         }
+
         public void cancelRoi()
         {
 
@@ -188,43 +221,18 @@ namespace Proiect
         public void displayRoi(Rectangle rect)
         {
             this.isRoi = true;
+            this.rect = rect;
             for (int index = 0; index < this.video.Count; index++)
             {
-                var img = new Bitmap(this.video[index].ToBitmap()).ToImage<Bgr, byte>();
+                var img = new Bitmap(this.video2[index].ToBitmap()).ToImage<Bgr, byte>();
                 img.ROI = rect;
                 var imgROI = img.Copy();
-                this.video[index] = imgROI.ToBitmap().ToMat();
+                this.roi.Add(imgROI.ToBitmap().ToMat());
             }
-            this.roi.AddRange(this.video);
-            pictureBox1.Image = video[this.FrameNo].ToBitmap();
+            this.combineWithRoi();
+            pictureBox1.Image = this.video[this.FrameNo].ToBitmap();
         }
-        public void writingVideo(UserImage userImage)
-        {
 
-            this.setWritingVideo();
-            Image<Bgr, byte> logo = userImage.getUserImage();
-            string destinationpath = @"E:\\Facultate\\test2.mp4";
-            using (VideoWriter writer = new VideoWriter(destinationpath, Fourcc, Fps, new Size(Width, Height), true))
-            {
-
-                Mat m = new Mat();
-
-                var FrameNo = 1;
-                while (FrameNo < TotalFrame)
-                {
-                    capture.Read(m);
-                    Image<Bgr, byte> img = m.ToImage<Bgr, byte>();
-                    img.ROI = new Rectangle(10, 10, logo.Width, logo.Height);
-                    logo.CopyTo(img);
-
-                    img.ROI = Rectangle.Empty;
-
-                    writer.Write(img.Mat);
-                    FrameNo++;
-                }
-
-            }
-        }
         public void setGreyScale(PictureBox picture)
         {
             this.comeBackVideo();
@@ -233,7 +241,7 @@ namespace Proiect
                 this.setUserImage(this.video[index].ToImage<Bgr, byte>());
                 this.video[index] = this.makeGrey().ToBitmap().ToMat();
             }
-
+            this.combineWithRoi();
             pictureBox1.Image = video[this.FrameNo].ToBitmap();
 
         }
@@ -276,8 +284,9 @@ namespace Proiect
                     break;
                 }
             }
+            this.combineWithRoi();
         }
-       
+
         public void crossDissolve(List<Mat> uVideo)
         {
             this.setWritingVideo();
@@ -332,6 +341,7 @@ namespace Proiect
                 this.setUserImage(video[i].ToImage<Bgr, byte>());
                 video[i] = this.Brignes(alfa, beta).Mat;
             }
+            this.combineWithRoi();
             pictureBox1.Image = video[this.FrameNo].ToBitmap();
         }
         public void extractColor(Bgr bgr)
@@ -344,6 +354,7 @@ namespace Proiect
                 this.video[i] = this.subtractColor(bgr).Mat;
 
             }
+            this.combineWithRoi();
             pictureBox1.Image = video[this.FrameNo].ToBitmap();
         }
         public void gamaVidep(TextBox gama)
@@ -354,6 +365,7 @@ namespace Proiect
                 this.setUserImage(video[i].ToImage<Bgr, byte>());
                 video[i] = this.getGama(gama).Mat;
             }
+            this.combineWithRoi();
             pictureBox1.Image = video[this.FrameNo].ToBitmap();
         }
         public void combineVideoAudio(OpenFileDialog audioFileName)
@@ -377,6 +389,47 @@ namespace Proiect
                 process.StartInfo = startInfo;
                 process.Start();
                 process.WaitForExit();
+            }
+        }
+
+        public void combineVideo(UserVideo userVideo)
+        {
+
+            this.setWritingVideo();
+            string destinationpath = @"E:\Facultate\Editare audio video\CombineVideo.mp4";
+            using (VideoWriter writer = new VideoWriter(destinationpath, this.Fourcc, this.Fps, new Size(this.Width, this.Height), true))
+            {
+
+
+                var FrameNo = 1;
+                while (FrameNo < TotalFrame - 1)
+                {
+                    try
+                    {
+                        Image<Bgr, byte> img1 = this.video[FrameNo].ToImage<Bgr, byte>();
+                        Image<Bgr, byte> img2 = userVideo.video[FrameNo].ToImage<Bgr, byte>();
+                        for (int i = 0; i < img2.Height; i++)
+                        {
+                            for (int j = 0; j < img2.Width; j++)
+                            {
+                                img1.Data[i + 100, j + 100, 0] = img2.Data[i, j, 0];
+                                img1.Data[i + 100, j + 100, 1] = img2.Data[i, j, 1];
+                                img1.Data[i + 100, j + 100, 2] = img2.Data[i, j, 2];
+                            }
+                        }
+
+                        writer.Write(img1);
+
+
+                        FrameNo++;
+                    }
+                    catch (Exception e)
+                    {
+                        Image<Bgr, byte> img1 = this.video[FrameNo].ToImage<Bgr, byte>();
+                        writer.Write(img1);
+                        FrameNo++;
+                    }
+                }
             }
         }
     }
