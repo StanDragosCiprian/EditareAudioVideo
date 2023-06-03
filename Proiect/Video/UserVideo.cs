@@ -36,6 +36,8 @@ namespace Proiect
         bool isRoi = false;
 
         public Rectangle Rect { get => rect; set => rect = value; }
+        public PictureBox PictureBox1 { get => pictureBox1; set => pictureBox1 = value; }
+        public OpenFileDialog Ofd { get => ofd; set => ofd = value; }
 
         public List<Mat> getAllVideo()
         {
@@ -49,6 +51,17 @@ namespace Proiect
         {
             this.FrameNo = frame;
             this.pictureBox1.Image = this.video[frame].ToBitmap();
+        }
+        public void load(OpenFileDialog ofd)
+        {
+                this.capture = new VideoCapture(ofd.FileName);
+                mat = new Mat();
+                this.capture.Read(mat);
+                this.TotalFrame = (int)this.capture.Get(CapProp.FrameCount);
+                this.Fps = this.capture.Get(CapProp.Fps);
+                this.FrameNo = 1;
+                this.fillVideo();
+                this.pictureBox1.Image = this.video[0].ToBitmap();
         }
         public void loadVideo(PictureBox pictureBox)
         {

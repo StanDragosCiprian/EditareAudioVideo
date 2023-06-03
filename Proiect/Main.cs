@@ -26,7 +26,8 @@ namespace Proiect
         }
         MenuStyle menuStyle;
 
-       
+        UserVideo userVideo = new UserVideo();
+        UserVideo userVideo2 = new UserVideo();
 
         private void switchToImage_Click(object sender, EventArgs e)
         {
@@ -59,6 +60,16 @@ namespace Proiect
             menuStyle.switchEvent(this);
             menuStyle.makeEvent();
             this.Controls.Add(menuStyle);
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.FileName = @"E:\Facultate\Editare audio video\SecondVideo.mp4";
+            userVideo.PictureBox1=pictureBox1;
+            userVideo.load(ofd);
+            userVideo.play();
+            userVideo2.PictureBox1 = pictureBox2;
+            ofd.FileName = @"E:\Facultate\Editare audio video\CaruselFirstPage.mp4";
+            userVideo2.load(ofd);
+            userVideo2.play();
+
         }
     }
 }
