@@ -24,7 +24,7 @@ namespace Proiect
         private bool IsReadingFrame;
         public VideoCapture capture;
         protected List<Mat> video = new List<Mat>();
-        protected List<Mat> video2 = new List<Mat>();
+        protected List<Mat> videoBackup = new List<Mat>();
         protected List<Mat> roi = new List<Mat>();
         private PictureBox pictureBox1;
         OpenFileDialog ofd;
@@ -91,7 +91,7 @@ namespace Proiect
                 frame++;
             }
 
-            this.video2.AddRange(this.video);
+            this.videoBackup.AddRange(this.video);
 
         }
         public void resizeRoi(TextBox rectX, TextBox rectY)
@@ -109,7 +109,7 @@ namespace Proiect
         {
 
             this.video.Clear();
-            this.video.AddRange(this.video2);
+            this.video.AddRange(this.videoBackup);
 
         }
         public void combineWithRoi()
@@ -140,7 +140,7 @@ namespace Proiect
         {
 
             this.video.Clear();
-            this.video.AddRange(this.video2);
+            this.video.AddRange(this.videoBackup);
             this.pictureBox1.Image = this.video[0].ToBitmap();
             this.isRoi = false;
 
@@ -237,7 +237,7 @@ namespace Proiect
             this.rect = rect;
             for (int index = 0; index < this.video.Count; index++)
             {
-                var img = new Bitmap(this.video2[index].ToBitmap()).ToImage<Bgr, byte>();
+                var img = new Bitmap(this.videoBackup[index].ToBitmap()).ToImage<Bgr, byte>();
                 img.ROI = rect;
                 var imgROI = img.Copy();
                 this.roi.Add(imgROI.ToBitmap().ToMat());
@@ -317,21 +317,22 @@ namespace Proiect
 
                         using (Image<Bgra, byte> img2 = uVideo[FrameNo2].ToImage<Bgra, byte>())
                         {
-                            if (FrameNo < (this.video.Count - 50))
+                            if (FrameNo <= (this.video.Count - 12))
                             {
                                 img1 = this.video[FrameNo].ToImage<Bgra, byte>();
                                 writer.Write(img1.Mat);
                             }
-                            else if (FrameNo > (this.video.Count - 50) && FrameNo < this.video.Count)
+                            else if (FrameNo > (this.video.Count - 12) && FrameNo < this.video.Count)
                             {
                                 img1 = this.video[FrameNo].ToImage<Bgra, byte>();
-                                alpha += 0.01;
-                                CvInvoke.AddWeighted(img1, alpha, img2, 1 - alpha, 0.0, img1);
-
+                                alpha += 0.05;
+                                CvInvoke.AddWeighted(img1, alpha, img2,  alpha, 0.0, img1);
+                                
                                 writer.Write(img1.Mat);
+                                FrameNo2++;
 
                             }
-                            else
+                            else if(FrameNo >= this.video.Count && FrameNo < this.video.Count + uVideo.Count)
                             {
                                 writer.Write(img2.Mat);
                                 FrameNo2++;
@@ -404,7 +405,19 @@ namespace Proiect
                 process.WaitForExit();
             }
         }
-
+        private Image<Bgr, byte> combineImage(Image<Bgr, byte> img1, Image<Bgr, byte> img2,int x,int y)
+        {
+            for (int i = 0; i < img2.Height; i++)
+            {
+                for (int j = 0; j < img2.Width; j++)
+                {
+                    img1.Data[i + x, j + y, 0] = img2.Data[i, j, 0];
+                    img1.Data[i + x, j + y, 1] = img2.Data[i, j, 1];
+                    img1.Data[i + x, j + y, 2] = img2.Data[i, j, 2];
+                }
+            }
+            return img1;
+        }
         public void combineVideo(UserVideo userVideo)
         {
 
@@ -421,18 +434,10 @@ namespace Proiect
                     {
                         Image<Bgr, byte> img1 = this.video[FrameNo].ToImage<Bgr, byte>();
                         Image<Bgr, byte> img2 = userVideo.video[FrameNo].ToImage<Bgr, byte>();
-                        for (int i = 0; i < img2.Height; i++)
-                        {
-                            for (int j = 0; j < img2.Width; j++)
-                            {
-                                img1.Data[i + 100, j + 100, 0] = img2.Data[i, j, 0];
-                                img1.Data[i + 100, j + 100, 1] = img2.Data[i, j, 1];
-                                img1.Data[i + 100, j + 100, 2] = img2.Data[i, j, 2];
-                            }
-                        }
+                        img2.ROI = new Rectangle(10, 10, img2.Width, img2.Height);
+                       var outputImage= combineImage(img1 , img2,10,10);
 
-                        writer.Write(img1);
-
+                        writer.Write(outputImage.Mat);
 
                         FrameNo++;
                     }
