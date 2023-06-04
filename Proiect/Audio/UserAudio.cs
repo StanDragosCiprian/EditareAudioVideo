@@ -1,10 +1,12 @@
-﻿using NAudio.Utils;
+﻿using Emgu.CV.OCR;
+using NAudio.Utils;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,7 +17,7 @@ namespace Proiect
         private WaveOutEvent outputDevice;
         private AudioFileReader audioFile;
         private OpenFileDialog ofd;
-
+        public OpenFileDialog Ofd { get => ofd; set => ofd = value; }
 
         private void OnPlaybackStopped(object sender, StoppedEventArgs args)
         {
@@ -51,13 +53,17 @@ namespace Proiect
             if (this.outputDevice == null)
             {
                 this.outputDevice = new WaveOutEvent();
-                this.outputDevice.PlaybackStopped += this.OnPlaybackStopped;
+                
             }
             if (this.audioFile == null)
             {
                 this.audioFile = new AudioFileReader(ofd.FileName);
                 this.outputDevice.Init(this.audioFile);
             }
+        }
+        public void pause()
+        {
+            this.outputDevice.Pause();
         }
         public void play()
         {
@@ -89,6 +95,7 @@ namespace Proiect
                 stereo2.LeftVolume = 0.35f;
                 stereo2.RightVolume = 0.35f;
                 var mixer = new MixingSampleProvider(new[] { stereo1, stereo2 });
+            
                 WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\mix2.wav", mixer);
             }
 
@@ -121,21 +128,26 @@ namespace Proiect
             var audio = new AudioFileReader(ofd3.FileName);
             var playlist = new ConcatenatingSampleProvider(new[] { mixerStero.ToMono(), audio.ToMono() });
             WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\mixerStero.wav", playlist);
+           
 
         }
         public void pitchLevel()
         {
-            var inPath = @"E:\Facultate\Editare audio video\mixerStero.wav";
-            var semitone = Math.Pow(2, 1.0 / 12);
-            var upOneTone = semitone * semitone;
-            var downOneTone = 1.0 / upOneTone;
-            using (var reader = new MediaFoundationReader(inPath))
-            {
+           
+                var inPath = @"E:\Facultate\Editare audio video\mixerStero.wav";
+                var semitone = Math.Pow(2, 1.0 / 12);
+                var upOneTone = semitone * semitone;
+                var downOneTone = 1.0 / upOneTone;
+
+                var reader = new MediaFoundationReader(inPath);
                 var pitch = new SmbPitchShiftingSampleProvider(reader.ToSampleProvider());
+                pitch.PitchFactor = (float)upOneTone;
 
                 WaveFileWriter.CreateWaveFile16(@"E:\Facultate\Editare audio video\pitch.wav", pitch);
 
-            }
+          
+
+            
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Proiect
             this.Controls.Add(contentList[indexImagae]);
             contentList[indexImagae].positionContentY(indexLocationY);
 
-            contentList[indexImagae].GetImage().loadImage();
+            contentList[indexImagae].loadImage();
             indexImagae++;
             indexLocationY += 613;
         }

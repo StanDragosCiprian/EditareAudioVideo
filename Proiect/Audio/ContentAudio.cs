@@ -30,7 +30,7 @@ namespace Proiect
  
         public void displayAudio()
         {
-            using (var reader = new AudioFileReader(@"E:\Facultate\Editare audio video\120_F_StringChordReverse_732.wav"))
+            using (var reader = new AudioFileReader(userAudio.Ofd.FileName))
             {
                 var sampleProvider = reader.ToSampleProvider().ToMono();
                 int sampleCount = (int)(sampleProvider.WaveFormat.SampleRate * reader.TotalTime.TotalSeconds);

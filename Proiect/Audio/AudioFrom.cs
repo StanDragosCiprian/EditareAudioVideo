@@ -38,10 +38,7 @@ namespace Proiect
         private void getIndex(object sender, EventArgs e)
         {
             this.indexSelected = ((ContentAudio)sender).id;
-            //if ((Control.ModifierKeys & Keys.Shift) != 0)
-            //{
-            //    audioSelected.Add(((ContentAudio)sender).id);
-            //}
+
         }
 
 
@@ -115,9 +112,9 @@ namespace Proiect
             this.audioList[indexSelected].getAudio().pitchLevel();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            this.audioList[indexSelected].getAudio().pause();
         }
     }
 }

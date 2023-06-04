@@ -41,6 +41,7 @@
             this.sterioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.concatingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pitchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.audioLoad.SuspendLayout();
             this.audioEdit.SuspendLayout();
             this.SuspendLayout();
@@ -75,12 +76,13 @@
             this.audioEdit.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.audioToolStripMenuItem});
             this.audioEdit.Name = "audioEdit";
-            this.audioEdit.Size = new System.Drawing.Size(119, 28);
+            this.audioEdit.Size = new System.Drawing.Size(211, 56);
             // 
             // audioToolStripMenuItem
             // 
             this.audioToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.playToolStripMenuItem,
+            this.pauseToolStripMenuItem,
             this.convertWavToolStripMenuItem,
             this.convertMp3ToolStripMenuItem,
             this.monoToolStripMenuItem,
@@ -140,6 +142,13 @@
             this.pitchToolStripMenuItem.Text = "Pitch";
             this.pitchToolStripMenuItem.Click += new System.EventHandler(this.pitchToolStripMenuItem_Click);
             // 
+            // pauseToolStripMenuItem
+            // 
+            this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.pauseToolStripMenuItem.Text = "Pause";
+            this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
+            // 
             // AudioFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -172,5 +181,6 @@
         private System.Windows.Forms.ToolStripMenuItem sterioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem concatingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pitchToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pauseToolStripMenuItem;
     }
 }
