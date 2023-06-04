@@ -235,6 +235,7 @@ namespace Proiect
         {
             this.isRoi = true;
             this.rect = rect;
+            this.roi.Clear();
             for (int index = 0; index < this.video.Count; index++)
             {
                 var img = new Bitmap(this.videoBackup[index].ToBitmap()).ToImage<Bgr, byte>();
@@ -347,13 +348,13 @@ namespace Proiect
                 }
             }
         }
-        public void brignesVidep(TextBox alfa, TextBox beta)
+        public void brightnessVideo(TextBox alfa, TextBox beta)
         {
             this.comeBackVideo();
             for (int i = 0; i < video.Count; i++)
             {
                 this.setUserImage(video[i].ToImage<Bgr, byte>());
-                video[i] = this.Brignes(alfa, beta).Mat;
+                video[i] = this.brightness(alfa, beta).Mat;
             }
             this.combineWithRoi();
             pictureBox1.Image = video[this.FrameNo].ToBitmap();

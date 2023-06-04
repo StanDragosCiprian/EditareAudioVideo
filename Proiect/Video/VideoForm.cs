@@ -174,7 +174,7 @@ namespace Proiect
 
             videoList[indexSelected].initMouseEvents();
             cancelROIToolStripMenuItem.Visible = true;
-            ((ToolStripMenuItem)sender).Click -= new EventHandler(ROI_Click);
+            resizeRoiToolStripMenuItem.Visible = true;
         }
         private void greyScaleToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -210,7 +210,7 @@ namespace Proiect
        
         private void button4_Click(object sender, EventArgs e)
         {
-            videoList[indexSelected].getVideo().brignesVidep(Alfa, Beta);
+            videoList[indexSelected].getVideo().brightnessVideo(Alfa, Beta);
             madeLightVisible(false);
         }
 
@@ -248,6 +248,7 @@ namespace Proiect
         {
             videoList[indexSelected].getVideo().cancelRoi();
             cancelROIToolStripMenuItem.Visible = false;
+            resizeRoiToolStripMenuItem.Visible = false;
         }
         private void visibleVideoFrame(bool isVisible)
         {
@@ -296,6 +297,14 @@ namespace Proiect
         private void resizeRoi_Click(object sender, EventArgs e)
         {
             videoList[indexSelected].getVideo().resizeRoi(rectX, rectY);
+            resizeOption(false);
+        }
+
+       
+
+        private void cleanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            videoList[indexSelected].getVideo().comeBackVideo();
         }
     }
 }

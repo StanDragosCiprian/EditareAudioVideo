@@ -39,7 +39,7 @@ namespace Proiect
         }
         public void brignes(TextBox alfa,TextBox beta)
         {
-            userImage.Brignes(this, alfa, beta);
+            userImage.brightness(this, alfa, beta);
         }
         public void gama(TextBox gama)
         {

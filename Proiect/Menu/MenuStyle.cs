@@ -14,6 +14,7 @@ namespace Proiect
         private ButtonStyle imageEditor = new ButtonStyle("Image Editor");
         private ButtonStyle videoEditor = new ButtonStyle("Video Editor");
         private ButtonStyle audioEditor = new ButtonStyle("Audio Editor");
+        private ButtonStyle Close = new ButtonStyle("Close");
         private Panel topPanel = new Panel();
 
         public MenuStyle()
@@ -21,11 +22,13 @@ namespace Proiect
             this.Dock = DockStyle.Left;
             this.BackColor = Color.FromArgb(51, 51, 76);
             this.setPane();
+            this.Controls.Add(Close);
             this.Controls.Add(audioEditor);
             this.Controls.Add(videoEditor);
             this.Controls.Add(imageEditor);
             this.Controls.Add(home);
             this.Controls.Add(topPanel);
+            
       
         }
         public void makeEvent()
@@ -34,6 +37,8 @@ namespace Proiect
             imageEditor.clickEvent();
             videoEditor.clickEvent();
             audioEditor.clickEvent();
+            Close.clickEventClose();
+
         }
         private void setPane()
         {
@@ -57,6 +62,7 @@ namespace Proiect
             videoEditor.setForms(form, videoForm);
             AudioFrom audioForm = new AudioFrom();
             audioEditor.setForms(form,audioForm);
+            Close.FormIn = form;
         }
     }
 }

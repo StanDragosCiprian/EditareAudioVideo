@@ -40,7 +40,6 @@
             this.combineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crossDissolveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.effectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ROI = new System.Windows.Forms.ToolStripMenuItem();
             this.greyScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.caruselToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +47,10 @@
             this.redToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.greenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ROI = new System.Windows.Forms.ToolStripMenuItem();
+            this.resizeRoiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelROIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cleanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contentLoad = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.loadVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,7 +69,6 @@
             this.rectX = new System.Windows.Forms.TextBox();
             this.rectY = new System.Windows.Forms.TextBox();
             this.resizeRoi = new System.Windows.Forms.Button();
-            this.resizeRoiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelX = new System.Windows.Forms.Label();
             this.labelY = new System.Windows.Forms.Label();
             this.videoEdit.SuspendLayout();
@@ -91,7 +92,7 @@
             this.videoToolStripMenuItem,
             this.effectsToolStripMenuItem});
             this.videoEdit.Name = "contextMenuStrip1";
-            this.videoEdit.Size = new System.Drawing.Size(123, 52);
+            this.videoEdit.Size = new System.Drawing.Size(211, 80);
             // 
             // videoToolStripMenuItem
             // 
@@ -110,49 +111,49 @@
             // playToolStripMenuItem
             // 
             this.playToolStripMenuItem.Name = "playToolStripMenuItem";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.playToolStripMenuItem.Text = "Play";
             this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
             // playBackToolStripMenuItem
             // 
             this.playBackToolStripMenuItem.Name = "playBackToolStripMenuItem";
-            this.playBackToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.playBackToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.playBackToolStripMenuItem.Text = "Play Back";
             this.playBackToolStripMenuItem.Click += new System.EventHandler(this.playBackToolStripMenuItem_Click);
             // 
             // jumpFrameToolStripMenuItem
             // 
             this.jumpFrameToolStripMenuItem.Name = "jumpFrameToolStripMenuItem";
-            this.jumpFrameToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.jumpFrameToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.jumpFrameToolStripMenuItem.Text = "Jump frame";
             this.jumpFrameToolStripMenuItem.Click += new System.EventHandler(this.jumpFrameToolStripMenuItem_Click);
             // 
             // writeToolStripMenuItem
             // 
             this.writeToolStripMenuItem.Name = "writeToolStripMenuItem";
-            this.writeToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.writeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.writeToolStripMenuItem.Text = "Write";
             this.writeToolStripMenuItem.Click += new System.EventHandler(this.writeToolStripMenuItem_Click);
             // 
             // combineToolStripMenuItem
             // 
             this.combineToolStripMenuItem.Name = "combineToolStripMenuItem";
-            this.combineToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.combineToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.combineToolStripMenuItem.Text = "Combine";
             this.combineToolStripMenuItem.Click += new System.EventHandler(this.combineToolStripMenuItem_Click);
             // 
             // crossDissolveToolStripMenuItem
             // 
             this.crossDissolveToolStripMenuItem.Name = "crossDissolveToolStripMenuItem";
-            this.crossDissolveToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.crossDissolveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.crossDissolveToolStripMenuItem.Text = "Cross dissolve";
             this.crossDissolveToolStripMenuItem.Click += new System.EventHandler(this.crossDissolveToolStripMenuItem_Click);
             // 
@@ -163,19 +164,13 @@
             this.caruselToolStripMenuItem,
             this.bToolStripMenuItem,
             this.colorHistogramToolStripMenuItem,
+            this.cleanToolStripMenuItem,
             this.ROI,
             this.resizeRoiToolStripMenuItem,
             this.cancelROIToolStripMenuItem});
             this.effectsToolStripMenuItem.Name = "effectsToolStripMenuItem";
             this.effectsToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.effectsToolStripMenuItem.Text = "Effects";
-            // 
-            // ROI
-            // 
-            this.ROI.Name = "ROI";
-            this.ROI.Size = new System.Drawing.Size(225, 26);
-            this.ROI.Text = "ROI";
-            this.ROI.Click += new System.EventHandler(this.ROI_Click);
             // 
             // greyScaleToolStripMenuItem
             // 
@@ -206,28 +201,43 @@
             this.blueToolStripMenuItem});
             this.colorHistogramToolStripMenuItem.Name = "colorHistogramToolStripMenuItem";
             this.colorHistogramToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
-            this.colorHistogramToolStripMenuItem.Text = "Color histogram";
+            this.colorHistogramToolStripMenuItem.Text = "Color extractor";
             // 
             // redToolStripMenuItem
             // 
             this.redToolStripMenuItem.Name = "redToolStripMenuItem";
-            this.redToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.redToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
             this.redToolStripMenuItem.Text = "Red";
             this.redToolStripMenuItem.Click += new System.EventHandler(this.redToolStripMenuItem_Click);
             // 
             // greenToolStripMenuItem
             // 
             this.greenToolStripMenuItem.Name = "greenToolStripMenuItem";
-            this.greenToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.greenToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
             this.greenToolStripMenuItem.Text = "Green";
             this.greenToolStripMenuItem.Click += new System.EventHandler(this.greenToolStripMenuItem_Click);
             // 
             // blueToolStripMenuItem
             // 
             this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
-            this.blueToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.blueToolStripMenuItem.Size = new System.Drawing.Size(131, 26);
             this.blueToolStripMenuItem.Text = "Blue";
             this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
+            // 
+            // ROI
+            // 
+            this.ROI.Name = "ROI";
+            this.ROI.Size = new System.Drawing.Size(225, 26);
+            this.ROI.Text = "ROI";
+            this.ROI.Click += new System.EventHandler(this.ROI_Click);
+            // 
+            // resizeRoiToolStripMenuItem
+            // 
+            this.resizeRoiToolStripMenuItem.Name = "resizeRoiToolStripMenuItem";
+            this.resizeRoiToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            this.resizeRoiToolStripMenuItem.Text = "Resize Roi";
+            this.resizeRoiToolStripMenuItem.Visible = false;
+            this.resizeRoiToolStripMenuItem.Click += new System.EventHandler(this.resizeRoiToolStripMenuItem_Click);
             // 
             // cancelROIToolStripMenuItem
             // 
@@ -236,6 +246,13 @@
             this.cancelROIToolStripMenuItem.Text = "Cancel ROI";
             this.cancelROIToolStripMenuItem.Visible = false;
             this.cancelROIToolStripMenuItem.Click += new System.EventHandler(this.cancelROIToolStripMenuItem_Click);
+            // 
+            // cleanToolStripMenuItem
+            // 
+            this.cleanToolStripMenuItem.Name = "cleanToolStripMenuItem";
+            this.cleanToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
+            this.cleanToolStripMenuItem.Text = "Clean";
+            this.cleanToolStripMenuItem.Click += new System.EventHandler(this.cleanToolStripMenuItem_Click);
             // 
             // contentLoad
             // 
@@ -355,7 +372,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(302, 43);
             this.button4.TabIndex = 48;
-            this.button4.Text = "Brignes";
+            this.button4.Text = "Brightness";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Visible = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
@@ -432,17 +449,10 @@
             this.resizeRoi.Name = "resizeRoi";
             this.resizeRoi.Size = new System.Drawing.Size(84, 57);
             this.resizeRoi.TabIndex = 61;
-            this.resizeRoi.Text = "Jump Frame";
+            this.resizeRoi.Text = "Resize roi";
             this.resizeRoi.UseVisualStyleBackColor = false;
             this.resizeRoi.Visible = false;
             this.resizeRoi.Click += new System.EventHandler(this.resizeRoi_Click);
-            // 
-            // resizeRoiToolStripMenuItem
-            // 
-            this.resizeRoiToolStripMenuItem.Name = "resizeRoiToolStripMenuItem";
-            this.resizeRoiToolStripMenuItem.Size = new System.Drawing.Size(225, 26);
-            this.resizeRoiToolStripMenuItem.Text = "Resize Roi";
-            this.resizeRoiToolStripMenuItem.Click += new System.EventHandler(this.resizeRoiToolStripMenuItem_Click);
             // 
             // labelX
             // 
@@ -489,6 +499,7 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.panel2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "VideoForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "VideoForm";
@@ -546,5 +557,6 @@
         private System.Windows.Forms.Button resizeRoi;
         private System.Windows.Forms.Label labelX;
         private System.Windows.Forms.Label labelY;
+        private System.Windows.Forms.ToolStripMenuItem cleanToolStripMenuItem;
     }
 }

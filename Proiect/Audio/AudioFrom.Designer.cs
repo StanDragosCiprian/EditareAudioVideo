@@ -76,7 +76,7 @@
             this.audioEdit.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.audioToolStripMenuItem});
             this.audioEdit.Name = "audioEdit";
-            this.audioEdit.Size = new System.Drawing.Size(211, 56);
+            this.audioEdit.Size = new System.Drawing.Size(119, 28);
             // 
             // audioToolStripMenuItem
             // 
@@ -156,6 +156,7 @@
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1582, 853);
             this.Controls.Add(this.panel2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AudioFrom";
             this.Text = "AudioFrom";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

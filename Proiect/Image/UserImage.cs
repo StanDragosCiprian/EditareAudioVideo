@@ -91,14 +91,14 @@ namespace Proiect
         {
             return this.My_Image.SubR(color);
         }
-        public void Brignes(ContentImage pictureBox, TextBox Alfa, TextBox Beta)
+        public void brightness(ContentImage pictureBox, TextBox Alfa, TextBox Beta)
         {
             double alfa = double.Parse(Alfa.Text);
             double beta = double.Parse(Beta.Text);
             this.outputImage = this.My_Image.Mul(alfa) + beta;
             this.pictureBox.Image = this.outputImage.ToBitmap();
         }
-        public Image<Bgr, byte> Brignes(TextBox Alfa, TextBox Beta)
+        public Image<Bgr, byte> brightness(TextBox Alfa, TextBox Beta)
         {
             double alfa = double.Parse(Alfa.Text);
             double beta = double.Parse(Beta.Text);

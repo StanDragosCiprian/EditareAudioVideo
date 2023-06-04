@@ -13,6 +13,9 @@ namespace Proiect
     {
         private Form formIn;
         private Form formOut;
+
+        public Form FormIn { get => formIn; set => formIn = value; }
+
         public ButtonStyle(string buttonName) {
             this.Text = buttonName;    
             this.Size=new Size(223, 108);
@@ -28,6 +31,10 @@ namespace Proiect
         {
             this.Click += this.click;
         }
+        public void clickEventClose()
+        {
+            this.Click += this.closeForms;
+        }
         protected void intiForm(Form formIn,Form formOut)
         {
             this.formIn = formIn; 
@@ -37,6 +44,10 @@ namespace Proiect
         {
             this.formIn = formIn;
             this.formOut = formOut;
+        }
+        private void closeForms(object sender, EventArgs e)
+        {
+            this.formIn.Close();
         }
         private void click(object sender, EventArgs e)
         {

@@ -86,7 +86,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(302, 43);
             this.button4.TabIndex = 31;
-            this.button4.Text = "Brignes";
+            this.button4.Text = "Brightness";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -237,6 +237,7 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ImageForm";
             this.Text = "ImageForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
