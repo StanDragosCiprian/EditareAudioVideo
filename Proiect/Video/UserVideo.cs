@@ -150,7 +150,7 @@ namespace Proiect
         {
             while (isPlaying())
             {
-                
+
                 pictureBox1.Image = video[this.FrameNo].ToBitmap();
                 await Task.Delay(1000 / Convert.ToInt16(this.Fps));
                 this.FrameNo += frame;
