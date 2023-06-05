@@ -58,7 +58,7 @@ namespace Proiect
             videoList[id].positionContentY(indexLocationY);
             videoList[id].loadImage();
             id++;
-            indexLocationY += 613;
+            indexLocationY += indexLocationY;
         }
         private void VideoForm_MouseDown(object sender, MouseEventArgs e)
         {
@@ -85,7 +85,7 @@ namespace Proiect
                     loadImage();
                     break;
                 case "Load Camera":
-                    videoList[--id].getCamera().loadCamera(videoList[--id], videoList[--id].GetImage());
+                    videoList[0].getCamera().loadCamera(videoList[0], videoList[0].GetImage());
                     break;
             }
         }
@@ -95,7 +95,7 @@ namespace Proiect
             videoList[id].positionContentY(indexLocationY);
             videoList[id].getVideo().loadVideo(videoList[id]);
             id++;
-            indexLocationY += 613;
+            indexLocationY += indexLocationY;
         }
         private void loadImage()
         {
@@ -103,7 +103,7 @@ namespace Proiect
             videoList[id].positionContentY(indexLocationY);
             videoList[id].loadImage();
             id++;
-            indexLocationY += 613;
+            indexLocationY += indexLocationY;
         }
         private void newContent(int id)
         {

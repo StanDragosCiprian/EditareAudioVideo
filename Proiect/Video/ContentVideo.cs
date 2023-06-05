@@ -26,7 +26,7 @@ namespace Proiect
         }
         public ContentVideo(int id) : base(id)
         {
-            this.Size = new Size(638, 538);
+            this.Size = new Size(640, 360);
             this.id = id;
         }
 

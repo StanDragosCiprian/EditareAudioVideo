@@ -150,14 +150,15 @@ namespace Proiect
         {
             while (isPlaying())
             {
-                this.FrameNo += frame;
+                
                 pictureBox1.Image = video[this.FrameNo].ToBitmap();
                 await Task.Delay(1000 / Convert.ToInt16(this.Fps));
+                this.FrameNo += frame;
             }
         }
         public bool isPlaying()
         {
-            return this.IsReadingFrame == true && this.FrameNo < this.TotalFrame;
+            return this.IsReadingFrame == true && this.FrameNo < this.TotalFrame-1;
         }
         public async void controlFrame(int frame)
         {
